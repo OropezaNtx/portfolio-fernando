@@ -63,7 +63,7 @@ function Contact() {
           </a>
 
           <a
-            href="https://github.com/"
+            href="https://github.com/fernando-oropeza-83a31b220"
             target="_blank"
             rel="noreferrer"
             className="border border-slate-700 px-6 py-3 rounded-xl hover:border-cyan-400 hover:text-cyan-400 hover:scale-105 active:scale-95 transition"

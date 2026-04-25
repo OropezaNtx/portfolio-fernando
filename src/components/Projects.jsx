@@ -13,15 +13,12 @@ function Projects() {
       className="bg-slate-950 text-white py-24 px-6"
     >
       <div className="max-w-6xl mx-auto">
+
         <div className="text-center mb-16">
           <p className="text-cyan-400 mb-2">Projects</p>
           <h2 className="text-4xl font-bold">
             Real solutions I&apos;ve built
           </h2>
-          <p className="text-slate-400 mt-4 max-w-2xl mx-auto">
-            A selection of data, automation and software projects focused on
-            solving real operational problems.
-          </p>
         </div>
 
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
@@ -30,52 +27,52 @@ function Projects() {
               key={project.id}
               className="card-glow relative bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:-translate-y-2 hover:shadow-xl hover:shadow-cyan-500/10 transition duration-300"
             >
-              <div className="mb-5">
-                <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-cyan-400/10 text-cyan-400 font-bold mb-4">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+              <h3 className="text-xl font-semibold mb-2">
+                {project.title}
+              </h3>
 
-                <p className="text-xs text-cyan-400 mb-2">
-                  {project.category}
-                </p>
+              <p className="text-slate-400 text-sm mb-4">
+                {project.tech.join(" · ")}
+              </p>
 
-                <h3 className="text-2xl font-semibold mb-2">
-                  {project.title}
-                </h3>
+              <p className="text-slate-400 text-sm mb-2">
+                <span className="text-cyan-400">Problem:</span> {project.problem}
+              </p>
 
-                <p className="text-slate-400 text-sm">
-                  {project.tech.join(" · ")}
-                </p>
-              </div>
+              <p className="text-slate-400 text-sm mb-2">
+                <span className="text-cyan-400">Solution:</span> {project.solution}
+              </p>
 
-              <div className="space-y-3 text-sm">
-                <p className="text-slate-400 leading-relaxed">
-                  <span className="text-cyan-400 font-medium">Problem: </span>
-                  {project.problem}
-                </p>
+              <p className="text-slate-300 text-sm font-medium">
+                <span className="text-cyan-400">Impact:</span> {project.impact}
+              </p>
 
-                <p className="text-slate-400 leading-relaxed">
-                  <span className="text-cyan-400 font-medium">Solution: </span>
-                  {project.solution}
-                </p>
+              <div className="mt-5 flex gap-4 text-sm">
 
-                <p className="text-slate-300 font-medium leading-relaxed">
-                  <span className="text-cyan-400 font-medium">Impact: </span>
-                  {project.impact}
-                </p>
-              </div>
-
-              <div className="mt-6 flex gap-4 text-sm">
                 <Link
                   to={`/project/${project.id}`}
                   className="text-cyan-400 hover:underline"
                 >
                   View case study →
                 </Link>
+
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-slate-400 hover:text-cyan-400"
+                  >
+                    GitHub
+                  </a>
+                )}
+
               </div>
+
             </article>
           ))}
         </div>
+
       </div>
     </motion.section>
   )

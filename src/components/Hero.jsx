@@ -23,6 +23,7 @@ function Hero() {
           pipelines de datos en entornos locales y cloud.
         </p>
 
+
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <a
             href="#projects"
@@ -39,6 +40,9 @@ function Hero() {
             Download CV
           </a>
         </div>
+        <p className="text-sm text-slate-500 mt-4">
+          Experience in American Express · Merck · Mobility projects
+        </p>
       </div>
     </section>
   )
