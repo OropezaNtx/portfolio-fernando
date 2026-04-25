@@ -14,20 +14,19 @@ function Hero() {
         </p>
 
         <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-          I build data and automation solutions for real business operations.
+          Data & Automation Developer building real-world solutions
         </h1>
 
         <p className="text-slate-300 max-w-3xl mx-auto text-lg md:text-xl mb-10 leading-relaxed">
-          Ingeniero en Sistemas con experiencia en American Express, Merck y proyectos de movilidad.
-          Especializado en desarrollo de herramientas, automatización de procesos y construcción de
-          pipelines de datos en entornos locales y cloud.
+          Systems Engineer with experience at American Express and Merck, building data pipelines,
+          automation tools and software solutions that improve operational efficiency and data quality.
         </p>
 
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <a
             href="#projects"
-            className="bg-cyan-400 text-slate-950 px-6 py-3 rounded-xl font-semibold hover:bg-cyan-300 transition shadow-lg shadow-cyan-400/20"
+            className="bg-cyan-400 text-slate-950 px-6 py-3 rounded-xl font-semibold hover:bg-cyan-300 hover:scale-105 active:scale-95 transition shadow-lg shadow-cyan-400/20"
           >
             View Projects
           </a>
@@ -35,13 +34,13 @@ function Hero() {
           <a
             href="/cv.pdf"
             download
-            className="border border-slate-700 px-6 py-3 rounded-xl hover:border-cyan-400 hover:text-cyan-400 transition"
+            className="border border-slate-700 px-6 py-3 rounded-xl hover:scale-105 active:scale-95 transition shadow-lg shadow-cyan-400/20"
           >
             Download CV
           </a>
         </div>
         <p className="text-sm text-slate-500 mt-4">
-          Experience in American Express · Merck · Mobility projects
+          Built solutions in American Express · Merck · Mobility & Data projects
         </p>
       </div>
     </section>

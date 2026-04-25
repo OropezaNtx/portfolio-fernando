@@ -14,12 +14,11 @@ function Contact() {
         <p className="text-cyan-400 mb-2">Contact</p>
 
         <h2 className="text-4xl font-bold mb-6">
-          Let&apos;s build something useful
+          Available for data, automation and software roles
         </h2>
 
-        <p className="text-slate-300 mb-8 max-w-2xl mx-auto">
-          Estoy abierto a oportunidades donde pueda aportar valor con soluciones
-          de datos, automatización, desarrollo de software y mejora de procesos.
+        <p className="text-slate-400 mb-8">
+          Open to opportunities in data engineering, automation, and software development.
         </p>
 
         <div className="grid md:grid-cols-3 gap-4 mb-10 text-left">

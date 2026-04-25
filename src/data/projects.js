@@ -5,6 +5,9 @@ export const projects = [
     category: "Data Capture · Automation · Desktop App",
     tech: ["Python", "Tkinter", "SQLite", "Excel", "PyInstaller"],
     image: "/images/projects/coverage-gap.png",
+
+    github: "https://github.com/OropezaNtx/my-portfolio.git",
+
     problem:
       "Commercial teams needed a structured way to capture, validate and consolidate operational records while reducing manual errors and inconsistencies.",
     solution:
@@ -30,6 +33,9 @@ export const projects = [
     category: "Data Engineering · SQL · BI",
     tech: ["SQL", "BigQuery", "Power BI", "Data Modeling"],
     image: "/images/projects/bigquery.png",
+
+    github: "https://github.com/TU_USUARIO/bigquery-analytics",
+
     problem:
       "Business data was distributed across multiple sources, making it difficult to analyze performance, segmentation and commercial coverage accurately.",
     solution:
@@ -54,6 +60,9 @@ export const projects = [
     category: "Desktop App · Business Software",
     tech: ["Python", "Tkinter", "SQLite", "Inventory Logic"],
     image: "/images/projects/pos.png",
+
+    github: "https://github.com/TU_USUARIO/pos-system",
+
     problem:
       "Small businesses often manage sales, inventory and cash control manually, increasing operational risk and reducing visibility.",
     solution:
@@ -78,6 +87,9 @@ export const projects = [
     category: "Mobile App · Field Operations",
     tech: ["Kotlin", "Jetpack Compose", "Room", "GPS", "Firebase"],
     image: "/images/projects/android-field.png",
+
+    github: "https://github.com/TU_USUARIO/android-field-app",
+
     problem:
       "Field data collection for transport and market studies can be inconsistent, manual and hard to validate.",
     solution:
@@ -102,6 +114,9 @@ export const projects = [
     category: "Automation · Quality Control",
     tech: ["Python", "Access", "SQL", "Power BI", "Excel"],
     image: "/images/projects/qr-traceability.png",
+
+    github: "https://github.com/TU_USUARIO/qr-traceability",
+
     problem:
       "Production file tracking relied on manual and paper-based workflows, making traceability slower and less reliable.",
     solution:
@@ -126,6 +141,9 @@ export const projects = [
     category: "Geospatial Data · Mobility Studies",
     tech: ["Python", "GPX", "GDB", "KMZ", "QGIS", "Google Earth", "Excel"],
     image: "/images/projects/gps-tools.png",
+
+    github: "https://github.com/TU_USUARIO/gps-tools",
+
     problem:
       "Mobility studies required cleaning, segmenting and validating GPS routes manually across different geospatial formats.",
     solution:
