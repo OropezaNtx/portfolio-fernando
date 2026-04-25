@@ -14,13 +14,36 @@ function Contact() {
         <p className="text-cyan-400 mb-2">Contact</p>
 
         <h2 className="text-4xl font-bold mb-6">
-          Let&apos;s build something together
+          Let&apos;s build something useful
         </h2>
 
-        <p className="text-slate-300 mb-10">
-          Estoy abierto a oportunidades donde pueda aportar valor con soluciones de datos,
-          automatización o desarrollo de software.
+        <p className="text-slate-300 mb-8 max-w-2xl mx-auto">
+          Estoy abierto a oportunidades donde pueda aportar valor con soluciones
+          de datos, automatización, desarrollo de software y mejora de procesos.
         </p>
+
+        <div className="grid md:grid-cols-3 gap-4 mb-10 text-left">
+          <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5">
+            <p className="text-cyan-400 font-semibold mb-2">Data Roles</p>
+            <p className="text-slate-400 text-sm">
+              SQL, BigQuery, Power BI, data quality and analytics.
+            </p>
+          </div>
+
+          <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5">
+            <p className="text-cyan-400 font-semibold mb-2">Automation</p>
+            <p className="text-slate-400 text-sm">
+              Python tools, process automation and internal systems.
+            </p>
+          </div>
+
+          <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5">
+            <p className="text-cyan-400 font-semibold mb-2">Software</p>
+            <p className="text-slate-400 text-sm">
+              Web, desktop and mobile applications for real workflows.
+            </p>
+          </div>
+        </div>
 
         <div className="flex flex-col md:flex-row justify-center gap-6">
           <a
