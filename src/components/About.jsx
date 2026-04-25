@@ -10,14 +10,14 @@ function About() {
           </h2>
 
           <p className="text-slate-300 leading-relaxed mb-4">
-            Soy un perfil técnico enfocado en datos, automatización y desarrollo de software.
-            He trabajado construyendo herramientas para captura de información, validación de datos,
-            dashboards, procesos ETL y soluciones internas para equipos operativos.
+          Soy Ingeniero en Sistemas Computacionales con experiencia en desarrollo de soluciones
+          basadas en datos, automatización de procesos y construcción de herramientas tecnológicas.
           </p>
 
           <p className="text-slate-300 leading-relaxed">
-            Mi enfoque está en convertir procesos manuales en sistemas más claros, medibles y eficientes,
-            utilizando tecnologías como Python, SQL, BigQuery, Power BI, Excel avanzado y desarrollo web.
+          He trabajado en sectores financiero, farmacéutico y de movilidad, desarrollando pipelines
+          de datos, sistemas internos y herramientas que optimizan la calidad de la información
+          y reducen procesos manuales.
           </p>
         </div>
 

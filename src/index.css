@@ -37,3 +37,27 @@ ul {
 .animate-scroll {
   animation: scroll 20s linear infinite;
 }
+
+.card-glow {
+  position: relative;
+}
+
+.card-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 211, 238, 0.35),
+    transparent,
+    rgba(59, 130, 246, 0.25)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.card-glow:hover::before {
+  opacity: 1;
+}

@@ -13,7 +13,7 @@ function Projects() {
         <div className="grid md:grid-cols-2 gap-8">
 
           {/* Proyecto 1 */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:scale-105 transition">
+          <div className="card-glow relative bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:-translate-y-2 transition duration-300">
             <h3 className="text-2xl font-semibold mb-2">
               Coverage GAP Form
             </h3>
@@ -23,8 +23,8 @@ function Projects() {
             </p>
 
             <p className="text-slate-300 mb-4">
-              Sistema de captura, validación y exportación de datos utilizado por ejecutivos.
-              Incluye lógica de negocio, auditoría y control de registros.
+            Plataforma de captura y validación de datos comerciales utilizada por ejecutivos, con lógica de negocio, auditoría y 
+            control de registros para mejorar la calidad de la información.
             </p>
 
             <button className="text-cyan-400 hover:underline">
@@ -33,7 +33,7 @@ function Projects() {
           </div>
 
           {/* Proyecto 2 */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:scale-105 transition">
+          <div className="card-glow relative bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:-translate-y-2 transition duration-300">
             <h3 className="text-2xl font-semibold mb-2">
               BigQuery Analytics
             </h3>
@@ -43,8 +43,7 @@ function Projects() {
             </p>
 
             <p className="text-slate-300 mb-4">
-              Desarrollo de consultas complejas para segmentación, métricas de negocio
-              y análisis de Coverage GAP.
+              Desarrollo de consultas avanzadas y pipelines de datos para segmentación, análisis de Coverage GAP y consolidación de información comercial en Google Cloud.
             </p>
 
             <button className="text-cyan-400 hover:underline">
@@ -53,7 +52,7 @@ function Projects() {
           </div>
 
           {/* Proyecto 3 */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:scale-105 transition">
+          <div className="card-glow relative bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:-translate-y-2 transition duration-300">
             <h3 className="text-2xl font-semibold mb-2">
               POS System
             </h3>
@@ -63,7 +62,7 @@ function Projects() {
             </p>
 
             <p className="text-slate-300 mb-4">
-              Sistema de ventas con inventario, usuarios, tickets y control de stock.
+              Sistema de punto de venta con gestión de inventario, ventas, usuarios y control operativo, diseñado para digitalizar procesos comerciales.
             </p>
 
             <button className="text-cyan-400 hover:underline">
@@ -72,7 +71,7 @@ function Projects() {
           </div>
 
           {/* Proyecto 4 */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:scale-105 transition">
+          <div className="card-glow relative bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:-translate-y-2 transition duration-300">
             <h3 className="text-2xl font-semibold mb-2">
               Android Field App
             </h3>
@@ -82,7 +81,7 @@ function Projects() {
             </p>
 
             <p className="text-slate-300 mb-4">
-              Aplicación móvil para captura de datos en campo con geolocalización y operación offline.
+              Aplicación móvil para captura de datos en campo con geolocalización, operación offline y generación de reportes para estudios de movilidad.
             </p>
 
             <button className="text-cyan-400 hover:underline">
