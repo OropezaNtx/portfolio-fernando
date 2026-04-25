@@ -1,3 +1,5 @@
+import { motion } from "framer-motion"
+
 const projects = [
   {
     title: "Coverage GAP Form",
@@ -63,7 +65,14 @@ const projects = [
 
 function Projects() {
   return (
-    <section id="projects" className="bg-slate-950 text-white py-24 px-6">
+    <motion.section
+      id="projects"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      className="bg-slate-950 text-white py-24 px-6"
+    >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <p className="text-cyan-400 mb-2">Projects</p>
@@ -80,7 +89,7 @@ function Projects() {
           {projects.map((project, index) => (
             <article
               key={index}
-              className="card-glow relative bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:-translate-y-2 transition duration-300"
+              className="card-glow relative bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:-translate-y-2 hover:shadow-xl hover:shadow-cyan-500/10 transition duration-300"
             >
               <div className="mb-5">
                 <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-cyan-400/10 text-cyan-400 font-bold mb-4">
@@ -125,7 +134,7 @@ function Projects() {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }
 
