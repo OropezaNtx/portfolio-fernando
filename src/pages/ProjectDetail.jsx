@@ -106,7 +106,7 @@ function ProjectDetail() {
             </div>
           </section>
 
-          <section className="grid md:grid-cols-2 gap-6">
+          <section className="grid md:grid-cols-2 gap-6 mb-12">
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
               <h2 className="text-2xl font-bold mb-5">Tech Stack</h2>
 
@@ -132,6 +132,35 @@ function ProjectDetail() {
                   </li>
                 ))}
               </ul>
+            </div>
+          </section>
+
+          <section className="grid md:grid-cols-3 gap-6">
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+              <h2 className="text-cyan-400 text-xl font-semibold mb-4">
+                Technical Challenges
+              </h2>
+              <p className="text-slate-300 leading-relaxed">
+                Designing reliable workflows, validating information quality and keeping the solution usable for real operational users.
+              </p>
+            </div>
+
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+              <h2 className="text-cyan-400 text-xl font-semibold mb-4">
+                What I Learned
+              </h2>
+              <p className="text-slate-300 leading-relaxed">
+                Building useful tools requires understanding the process first, then translating that logic into data structures, automation and interfaces.
+              </p>
+            </div>
+
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+              <h2 className="text-cyan-400 text-xl font-semibold mb-4">
+                Next Improvements
+              </h2>
+              <p className="text-slate-300 leading-relaxed">
+                Improve deployment, add better documentation, expand reporting and strengthen the architecture for future scalability.
+              </p>
             </div>
           </section>
         </div>
