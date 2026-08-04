@@ -17,17 +17,17 @@ function Hero() {
 
       <div className="relative z-10 mx-auto grid w-full max-w-[1380px] items-center gap-14 px-6 pb-16 lg:grid-cols-[0.92fr_1.08fr] lg:px-10">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-3xl">
-          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200">Data & Software Solutions Engineer</p>
+          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200">Systems Solutions Engineer</p>
           <h1 className="text-5xl font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-7xl xl:text-[5.6rem]">
             Building software that helps people work better.
           </h1>
           <p className="mt-7 max-w-xl text-lg leading-8 text-slate-300 sm:text-xl">
-            I transform real business processes into desktop, web, Android, data, business intelligence and cloud solutions.
+            I understand real operations, organize the information and transform the process into desktop, web, Android, data, business intelligence and cloud solutions.
           </p>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <a href="#solutions" className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3.5 font-semibold text-slate-950 transition hover:scale-[1.02] hover:bg-cyan-100">What I build</a>
-            <a href="#projects" className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3.5 font-medium text-white transition hover:border-white/45 hover:bg-white/5">Explore my work</a>
+            <a href="#projects" className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3.5 font-medium text-white transition hover:border-white/45 hover:bg-white/5">Explore featured solutions</a>
           </div>
 
           <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-sm text-slate-400">
