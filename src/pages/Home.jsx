@@ -3,11 +3,12 @@ import Navbar from "../components/Navbar"
 import Starfield from "../components/Starfield"
 import Hero from "../components/Hero"
 import Metrics from "../components/Metrics"
+import WhatIBuild from "../components/WhatIBuild"
 import About from "../components/About"
-import Projects from "../components/Projects"
+import Process from "../components/Process"
 import Skills from "../components/Skills"
 import TechStack from "../components/TechStack"
-import Process from "../components/Process"
+import Projects from "../components/Projects"
 import Experience from "../components/Experience"
 import Contact from "../components/Contact"
 import Footer from "../components/Footer"
@@ -19,7 +20,7 @@ function Home() {
         <title>Fernando Oropeza | Data, Automation & Software Solutions</title>
         <meta
           name="description"
-          content="Systems Engineer experienced in data integration, process automation, analytics and software development with Python, SQL, BigQuery, Power BI and cloud technologies."
+          content="Systems Engineer who transforms real business processes into desktop, web, Android, data, business intelligence and cloud solutions."
         />
       </Helmet>
 
@@ -28,12 +29,13 @@ function Home() {
         <Navbar />
         <Hero />
         <Metrics />
-        <Projects />
-        <Experience />
+        <WhatIBuild />
         <About />
         <Process />
         <Skills />
         <TechStack />
+        <Projects />
+        <Experience />
         <Contact />
         <Footer />
       </div>
