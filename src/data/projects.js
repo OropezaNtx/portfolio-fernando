@@ -6,17 +6,23 @@ export const projects = [
     audience: "Sales Support, commercial executives and operational analysts",
     category: "Data Engineering · SQL · Business Intelligence",
     tech: ["BigQuery", "SQL", "Power BI", "Python", "Excel"],
-    image: "/images/projects/bigquery.png",
+    image: "/images/projects/commercial-data-integration/dash1.png",
+
     problem:
-      "Commercial information was distributed across affiliations, executives, campaigns, industries, visits, coverage and billing sources. Following performance required repeated manual reconciliation and different operational criteria.",
+    "Commercial information was distributed across affiliations, executives, campaigns, industries, visits, coverage and billing sources. Following performance required repeated manual reconciliation and different operational criteria.",
     solution:
-      "Designed a BigQuery-based analytical foundation that standardizes sources, applies business rules, calculates commercial indicators and prepares datasets for operational follow-up, executive support and Power BI reporting.",
+    "Designed a BigQuery-based analytical foundation that standardizes sources, applies business rules, calculates commercial indicators and prepares datasets for operational follow-up, executive support and Power BI reporting.",
     impact:
-      "Created a centralized commercial-data layer that connects operational information, improves traceability and supports faster analysis and decision-making.",
+    "Created a centralized commercial-data layer that connects operational information, improves traceability and supports faster analysis and decision-making.",
     metrics: [
       "Multiple commercial domains connected in one analytical model",
       "Business rules and calculated classifications centralized",
       "Dashboard-ready information prepared for operational users",
+    ],
+    gallery: [
+      "/images/projects/commercial-data-integration/dash1.png",
+      "/images/projects/commercial-data-integration/dash2.png",
+      "/images/projects/commercial-data-integration/dash3.png",
     ],
     architecture: ["Operational sources", "SQL standardization", "BigQuery models", "Business rules", "Power BI & operational views"],
     before: ["Fragmented Excel and Access sources", "Repeated manual reconciliation", "Different criteria between reports", "Limited traceability"],
@@ -47,6 +53,11 @@ export const projects = [
     impact:
       "Turned commercial rules into a usable operational tool that standardizes data at the moment of capture and improves downstream information quality.",
     metrics: ["Field and business-rule validation automated", "Merchant and sales records standardized", "Executable workflow prepared for end users"],
+    gallery: [
+      "/images/projects/coverage_gap_form/cgapf1.png",
+      "/images/projects/coverage_gap_form/cgapf2.png",
+      "/images/projects/coverage_gap_form/cgapf3.png",
+    ],
     architecture: ["Commercial executive", "Desktop form", "Validation engine", "Business rules", "Controlled export", "Performance data process"],
     before: ["Free-form spreadsheet capture", "Incomplete and inconsistent records", "Manual review after submission", "Business rules applied too late"],
     after: ["Guided desktop experience", "Validation during capture", "Automatic calculations and restrictions", "Structured export for downstream processes"],
