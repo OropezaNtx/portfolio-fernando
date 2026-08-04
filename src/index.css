@@ -25,6 +25,10 @@ body {
   background: #020617;
 }
 
+section[id] {
+  scroll-margin-top: 88px;
+}
+
 ::selection {
   background: rgba(165, 243, 252, 0.28);
   color: white;
