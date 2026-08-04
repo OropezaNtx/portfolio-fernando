@@ -1,11 +1,34 @@
 import { useEffect, useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 
+const mediaFolders = {
+  "Commercial Data Integration & Performance Analytics": "/images/projects/commercial-data-integration",
+  "Coverage GAP Form": "/images/projects/coverage-gap-form",
+  "NAF Commercial Classification Automation": "/images/projects/naf-automation",
+  "QR Traceability System": "/images/projects/qr-traceability",
+  "GPS & Mobility Data Tools": "/images/projects/gps-mobility-tools",
+  AFORA: "/images/projects/afora",
+  POLITYCS: "/images/projects/politycs",
+  MOBILYTICS: "/images/projects/mobilytics",
+  "American Express Mexico": "/images/experience/american-express",
+  Merck: "/images/experience/merck",
+  "Urban Data": "/images/experience/urban-data",
+}
+
+function buildGenericImages(title) {
+  const folder = mediaFolders[title]
+  if (!folder) return []
+
+  return ["01.png", "02.png", "03.png"].map((fileName) => `${folder}/${fileName}`)
+}
+
 function ImageGallery({ images = [], title = "Gallery", className = "" }) {
-  const normalizedImages = useMemo(
-    () => [...new Set(images.filter(Boolean))].slice(0, 3),
-    [images],
-  )
+  const normalizedImages = useMemo(() => {
+    const genericImages = buildGenericImages(title)
+    const source = genericImages.length ? genericImages : images
+    return [...new Set(source.filter(Boolean))].slice(0, 3)
+  }, [images, title])
+
   const [availableImages, setAvailableImages] = useState(normalizedImages)
   const [index, setIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
@@ -34,11 +57,15 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
   }
 
   if (!availableImages.length) {
+    const folder = mediaFolders[title]
+
     return (
       <div
         className={`flex aspect-video items-center justify-center rounded-2xl border border-dashed border-slate-700 bg-slate-950/70 px-6 text-center text-sm text-slate-500 ${className}`}
       >
-        Add 01.png, 02.png and 03.png to this item&apos;s image folder.
+        {folder
+          ? `Add 01.png, 02.png and 03.png inside public${folder}.`
+          : "Add up to three images for this item."}
       </div>
     )
   }
