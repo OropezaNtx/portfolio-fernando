@@ -1,5 +1,9 @@
-import { useEffect, useMemo, useState } from "react"
-import { AnimatePresence, motion } from "framer-motion"
+import { useEffect, useMemo, useRef, useState } from "react"
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
+
+const AUTOPLAY_DELAY = 5000
+const INTERACTION_PAUSE = 7000
+const SWIPE_THRESHOLD = 45
 
 const mediaFolders = {
   "Commercial Data Integration & Performance Analytics": "/images/projects/commercial-data-integration",
@@ -23,6 +27,11 @@ function buildGenericImages(title) {
 }
 
 function ImageGallery({ images = [], title = "Gallery", className = "" }) {
+  const prefersReducedMotion = useReducedMotion()
+  const containerRef = useRef(null)
+  const pointerStartRef = useRef(null)
+  const interactionTimerRef = useRef(null)
+
   const normalizedImages = useMemo(() => {
     const genericImages = buildGenericImages(title)
     const source = genericImages.length ? genericImages : images
@@ -31,7 +40,12 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
 
   const [availableImages, setAvailableImages] = useState(normalizedImages)
   const [index, setIndex] = useState(0)
-  const [isPaused, setIsPaused] = useState(false)
+  const [direction, setDirection] = useState(1)
+  const [isHovered, setIsHovered] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const [isDocumentVisible, setIsDocumentVisible] = useState(true)
+  const [isInteractionPaused, setIsInteractionPaused] = useState(false)
 
   useEffect(() => {
     setAvailableImages(normalizedImages)
@@ -39,14 +53,72 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
   }, [normalizedImages.join("|")])
 
   useEffect(() => {
-    if (availableImages.length <= 1 || isPaused) return undefined
+    const element = containerRef.current
+    if (!element || typeof IntersectionObserver === "undefined") return undefined
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.25 },
+    )
+
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const handleVisibilityChange = () => setIsDocumentVisible(!document.hidden)
+    document.addEventListener("visibilitychange", handleVisibilityChange)
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange)
+  }, [])
+
+  useEffect(() => {
+    if (availableImages.length <= 1) return undefined
+
+    const nextIndex = (index + 1) % availableImages.length
+    const previousIndex = (index - 1 + availableImages.length) % availableImages.length
+
+    ;[availableImages[nextIndex], availableImages[previousIndex]].forEach((src) => {
+      const preloadImage = new Image()
+      preloadImage.src = src
+    })
+
+    return undefined
+  }, [availableImages, index])
+
+  const autoplayPaused =
+    prefersReducedMotion ||
+    isHovered ||
+    isFocused ||
+    !isVisible ||
+    !isDocumentVisible ||
+    isInteractionPaused
+
+  useEffect(() => {
+    if (availableImages.length <= 1 || autoplayPaused) return undefined
 
     const interval = window.setInterval(() => {
+      setDirection(1)
       setIndex((current) => (current + 1) % availableImages.length)
-    }, 3000)
+    }, AUTOPLAY_DELAY)
 
     return () => window.clearInterval(interval)
-  }, [availableImages.length, isPaused])
+  }, [availableImages.length, autoplayPaused])
+
+  useEffect(
+    () => () => {
+      if (interactionTimerRef.current) window.clearTimeout(interactionTimerRef.current)
+    },
+    [],
+  )
+
+  const pauseAfterInteraction = () => {
+    setIsInteractionPaused(true)
+    if (interactionTimerRef.current) window.clearTimeout(interactionTimerRef.current)
+
+    interactionTimerRef.current = window.setTimeout(() => {
+      setIsInteractionPaused(false)
+    }, INTERACTION_PAUSE)
+  }
 
   const removeUnavailableImage = (src) => {
     setAvailableImages((current) => {
@@ -54,6 +126,53 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
       setIndex((currentIndex) => (next.length ? Math.min(currentIndex, next.length - 1) : 0))
       return next
     })
+  }
+
+  const goToImage = (nextIndex, nextDirection = 1, manual = true) => {
+    if (!availableImages.length || nextIndex === index) return
+    setDirection(nextDirection)
+    setIndex(nextIndex)
+    if (manual) pauseAfterInteraction()
+  }
+
+  const previous = () => {
+    goToImage((index - 1 + availableImages.length) % availableImages.length, -1)
+  }
+
+  const next = () => {
+    goToImage((index + 1) % availableImages.length, 1)
+  }
+
+  const handleKeyDown = (event) => {
+    if (availableImages.length <= 1) return
+
+    if (event.key === "ArrowLeft") {
+      event.preventDefault()
+      previous()
+    }
+
+    if (event.key === "ArrowRight") {
+      event.preventDefault()
+      next()
+    }
+  }
+
+  const handlePointerDown = (event) => {
+    if (availableImages.length <= 1) return
+    pointerStartRef.current = { x: event.clientX, y: event.clientY }
+  }
+
+  const handlePointerUp = (event) => {
+    const start = pointerStartRef.current
+    pointerStartRef.current = null
+    if (!start || availableImages.length <= 1) return
+
+    const deltaX = event.clientX - start.x
+    const deltaY = event.clientY - start.y
+
+    if (Math.abs(deltaX) < SWIPE_THRESHOLD || Math.abs(deltaX) <= Math.abs(deltaY)) return
+    if (deltaX > 0) previous()
+    else next()
   }
 
   if (!availableImages.length) {
@@ -70,43 +189,53 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
     )
   }
 
-  const previous = () => {
-    setIndex((current) => (current - 1 + availableImages.length) % availableImages.length)
-  }
-
-  const next = () => {
-    setIndex((current) => (current + 1) % availableImages.length)
-  }
-
   return (
     <div
-      className={`group relative aspect-video w-full overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 ${className}`}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+      ref={containerRef}
+      tabIndex={0}
+      role="region"
+      aria-label={`${title} image gallery`}
+      aria-roledescription="carousel"
+      className={`group relative aspect-video w-full touch-pan-y overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/80 ${className}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocusCapture={() => setIsFocused(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setIsFocused(false)
+      }}
+      onKeyDown={handleKeyDown}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={() => {
+        pointerStartRef.current = null
+      }}
     >
-      <AnimatePresence mode="wait">
+      <AnimatePresence initial={false} custom={direction} mode="popLayout">
         <motion.img
           key={availableImages[index]}
           src={availableImages[index]}
-          alt={`${title} image ${index + 1}`}
+          alt={`${title} image ${index + 1} of ${availableImages.length}`}
           loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover"
-          initial={{ opacity: 0, x: 48 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -48 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          decoding="async"
+          draggable="false"
+          className="absolute inset-0 h-full w-full select-none object-cover"
+          custom={direction}
+          initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: direction * 36, scale: 1.015 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: direction * -24, scale: 0.99 }}
+          transition={{ duration: prefersReducedMotion ? 0.2 : 0.7, ease: [0.22, 1, 0.36, 1] }}
           onError={() => removeUnavailableImage(availableImages[index])}
         />
       </AnimatePresence>
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/45 via-transparent to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/55 via-transparent to-slate-950/10" />
 
       {availableImages.length > 1 && (
         <>
           <button
             type="button"
             onClick={previous}
-            className="absolute left-4 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/70 text-xl text-white opacity-0 backdrop-blur transition group-hover:opacity-100 focus:opacity-100"
+            className="absolute left-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/70 text-2xl text-white opacity-0 shadow-lg backdrop-blur-md transition hover:scale-105 hover:bg-slate-900 group-hover:opacity-100 focus:opacity-100"
             aria-label="Previous image"
           >
             ‹
@@ -114,25 +243,50 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
           <button
             type="button"
             onClick={next}
-            className="absolute right-4 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/70 text-xl text-white opacity-0 backdrop-blur transition group-hover:opacity-100 focus:opacity-100"
+            className="absolute right-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/70 text-2xl text-white opacity-0 shadow-lg backdrop-blur-md transition hover:scale-105 hover:bg-slate-900 group-hover:opacity-100 focus:opacity-100"
             aria-label="Next image"
           >
             ›
           </button>
 
-          <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-2">
-            {availableImages.map((image, imageIndex) => (
-              <button
-                key={image}
-                type="button"
-                onClick={() => setIndex(imageIndex)}
-                className={`h-2 rounded-full transition-all ${
-                  imageIndex === index ? "w-7 bg-cyan-400" : "w-2 bg-white/40 hover:bg-white/70"
-                }`}
-                aria-label={`Go to image ${imageIndex + 1}`}
-              />
-            ))}
+          <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1.5 rounded-full border border-white/10 bg-slate-950/65 p-1.5 shadow-lg backdrop-blur-md">
+            {availableImages.map((image, imageIndex) => {
+              const active = imageIndex === index
+              return (
+                <button
+                  key={image}
+                  type="button"
+                  onClick={() => goToImage(imageIndex, imageIndex > index ? 1 : -1)}
+                  className={`relative flex h-7 items-center justify-center overflow-hidden rounded-full text-[10px] font-semibold transition-all duration-300 ${
+                    active
+                      ? "w-12 bg-cyan-300 text-slate-950"
+                      : "w-7 bg-white/10 text-white/70 hover:bg-white/20 hover:text-white"
+                  }`}
+                  aria-label={`Go to image ${imageIndex + 1}`}
+                  aria-current={active ? "true" : undefined}
+                >
+                  {String(imageIndex + 1).padStart(2, "0")}
+                  {active && !autoplayPaused && (
+                    <motion.span
+                      key={`${index}-${isInteractionPaused}`}
+                      className="absolute bottom-0 left-0 h-0.5 bg-slate-950/55"
+                      initial={{ width: 0 }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: AUTOPLAY_DELAY / 1000, ease: "linear" }}
+                    />
+                  )}
+                </button>
+              )
+            })}
           </div>
+
+          <div className="absolute right-4 top-4 z-20 rounded-full border border-white/10 bg-slate-950/65 px-3 py-1.5 text-xs tabular-nums text-white/75 opacity-0 backdrop-blur-md transition group-hover:opacity-100 focus-within:opacity-100">
+            {index + 1} / {availableImages.length}
+          </div>
+
+          <p className="sr-only" aria-live="polite">
+            Showing image {index + 1} of {availableImages.length}
+          </p>
         </>
       )}
     </div>
