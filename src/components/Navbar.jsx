@@ -12,11 +12,25 @@ function Navbar() {
   }, [])
 
   const links = [
-    { label: "Work", href: "/#projects" },
-    { label: "Experience", href: "/#experience" },
-    { label: "About", href: "/#about" },
-    { label: "Contact", href: "/#contact" },
+    { label: "Work", href: "#projects" },
+    { label: "Experience", href: "#experience" },
+    { label: "About", href: "#about" },
+    { label: "Process", href: "#process" },
+    { label: "Capabilities", href: "#skills" },
+    { label: "Contact", href: "#contact" },
   ]
+
+  const navigateToSection = (event, href) => {
+    if (window.location.pathname !== "/") return
+
+    const section = document.querySelector(href)
+    if (!section) return
+
+    event.preventDefault()
+    setIsOpen(false)
+    section.scrollIntoView({ behavior: "smooth", block: "start" })
+    window.history.replaceState(null, "", href)
+  }
 
   return (
     <header
@@ -27,16 +41,21 @@ function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-[1380px] items-center justify-between px-6 py-5 lg:px-10">
-        <a href="/#home" className="group flex items-center gap-2 text-white">
+        <a
+          href="#home"
+          onClick={(event) => navigateToSection(event, "#home")}
+          className="group flex items-center gap-2 text-white"
+        >
           <span className="text-lg font-semibold tracking-[-0.03em]">Fernando Oropeza</span>
           <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 transition group-hover:scale-150" />
         </a>
 
-        <ul className="hidden items-center gap-8 lg:flex">
+        <ul className="hidden items-center gap-6 xl:flex">
           {links.map((item) => (
             <li key={item.label}>
               <a
                 href={item.href}
+                onClick={(event) => navigateToSection(event, item.href)}
                 className="text-sm text-slate-300 transition hover:text-white"
               >
                 {item.label}
@@ -54,7 +73,8 @@ function Navbar() {
             Download CV
           </a>
           <a
-            href="/#contact"
+            href="#contact"
+            onClick={(event) => navigateToSection(event, "#contact")}
             className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-slate-950 transition hover:scale-[1.03] hover:bg-cyan-100"
           >
             Let&apos;s talk
@@ -66,20 +86,20 @@ function Navbar() {
           aria-label="Toggle navigation"
           aria-expanded={isOpen}
           onClick={() => setIsOpen((current) => !current)}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white lg:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white xl:hidden"
         >
           <span className="text-lg">{isOpen ? "×" : "☰"}</span>
         </button>
       </nav>
 
       {isOpen && (
-        <div className="border-t border-white/10 bg-slate-950/96 px-6 py-6 backdrop-blur-xl lg:hidden">
+        <div className="border-t border-white/10 bg-slate-950/96 px-6 py-6 backdrop-blur-xl xl:hidden">
           <div className="flex flex-col gap-1">
             {links.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                onClick={() => setIsOpen(false)}
+                onClick={(event) => navigateToSection(event, item.href)}
                 className="border-b border-white/10 py-4 text-lg text-slate-200"
               >
                 {item.label}
