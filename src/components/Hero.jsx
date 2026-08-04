@@ -1,87 +1,105 @@
 import { motion } from "framer-motion"
 
-const pipeline = ["Sources", "Python", "BigQuery", "Power BI"]
-
 function Hero() {
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden bg-slate-950 pb-20 pt-32 text-white md:pt-40">
-      <div className="grid-fade absolute inset-0 opacity-70" />
-      <div className="animate-pulse-soft absolute left-[8%] top-24 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl" />
-      <div className="animate-pulse-soft absolute right-[5%] top-44 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl [animation-delay:1.4s]" />
+    <section
+      id="home"
+      className="relative flex min-h-screen items-center overflow-hidden bg-slate-950 pt-28 text-white"
+    >
+      <div className="hero-orb hero-orb-one" />
+      <div className="hero-orb hero-orb-two" />
+      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-slate-950 to-transparent" />
 
-      <div className="section-shell relative z-10 grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
-        <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-          <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-2 text-xs text-cyan-200">
-            <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_14px_rgba(52,211,153,0.9)]" />
-            Open to data, automation and software opportunities
-          </div>
-
-          <p className="eyebrow mb-5">Data · Automation · Software · Cloud</p>
-
-          <h1 className="max-w-4xl text-5xl font-semibold leading-[1.02] tracking-[-0.045em] text-white sm:text-6xl lg:text-7xl">
-            I turn complex processes into
-            <span className="block bg-gradient-to-r from-cyan-300 via-sky-300 to-blue-400 bg-clip-text text-transparent">
-              usable technology solutions.
-            </span>
-          </h1>
-
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-400">
-            Systems Engineer focused on data integration, process automation and software development for financial, pharmaceutical and mobility operations.
+      <div className="relative z-10 mx-auto grid w-full max-w-[1380px] items-center gap-14 px-6 pb-16 lg:grid-cols-[0.9fr_1.1fr] lg:px-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-3xl"
+        >
+          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200">
+            Data · Automation · Software · Cloud
           </p>
 
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <a href="#projects" className="inline-flex items-center justify-center rounded-xl bg-cyan-300 px-6 py-3.5 font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:bg-cyan-200">
-              Explore case studies <span className="ml-2">→</span>
+          <h1 className="text-5xl font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-7xl xl:text-[5.6rem]">
+            Technology that makes complex work feel simpler.
+          </h1>
+
+          <p className="mt-7 max-w-xl text-lg leading-8 text-slate-300 sm:text-xl">
+            I design data and software solutions for real business processes, from information integration to automation and operational tools.
+          </p>
+
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="#projects"
+              className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3.5 font-semibold text-slate-950 transition hover:scale-[1.02] hover:bg-cyan-100"
+            >
+              Explore my work
             </a>
-            <a href="/cv.pdf" download className="inline-flex items-center justify-center rounded-xl border border-slate-700 bg-white/[0.03] px-6 py-3.5 font-medium text-slate-200 transition hover:-translate-y-0.5 hover:border-slate-500 hover:bg-white/[0.06]">
+            <a
+              href="/cv.pdf"
+              download
+              className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3.5 font-medium text-white transition hover:border-white/45 hover:bg-white/5"
+            >
               Download CV
             </a>
           </div>
 
-          <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3 border-t border-white/10 pt-6 text-sm text-slate-500">
-            <span>American Express</span><span>Merck</span><span>Urban Data</span><span>Independent products</span>
+          <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-sm text-slate-400">
+            <span>American Express</span>
+            <span>Merck</span>
+            <span>Urban Data</span>
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, x: 35 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.15 }} className="relative">
-          <div className="animate-float glass-panel relative rounded-[2rem] p-4 sm:p-6">
-            <div className="mb-5 flex items-center justify-between border-b border-white/10 pb-4">
-              <div>
-                <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Solution architecture</p>
-                <h2 className="mt-1 font-semibold text-slate-100">Business process transformation</h2>
-              </div>
-              <div className="flex gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-rose-400/70"/><span className="h-2.5 w-2.5 rounded-full bg-amber-300/70"/><span className="h-2.5 w-2.5 rounded-full bg-emerald-400/70"/></div>
-            </div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.94, y: 35 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.12 }}
+          className="relative min-h-[470px] lg:min-h-[690px]"
+        >
+          <div className="absolute left-[4%] top-[8%] h-[78%] w-[86%] rotate-[-7deg] rounded-[3rem] bg-gradient-to-br from-cyan-300 via-sky-500 to-blue-700 opacity-80 blur-2xl" />
 
-            <div className="rounded-2xl border border-white/10 bg-slate-950/80 p-4 sm:p-5">
-              <div className="grid gap-3 sm:grid-cols-4">
-                {pipeline.map((item, index) => (
-                  <div key={item} className="relative">
-                    <div className="rounded-xl border border-slate-800 bg-slate-900 px-3 py-4 text-center">
-                      <span className="mb-2 block text-[10px] text-cyan-400">0{index + 1}</span>
-                      <span className="text-xs font-semibold text-slate-200">{item}</span>
-                    </div>
-                    {index < pipeline.length - 1 && <div className="flow-line absolute -right-3 top-1/2 hidden h-px w-3 sm:block" />}
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-5 grid grid-cols-2 gap-3">
-                <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
-                  <p className="text-xs text-slate-500">Primary focus</p>
-                  <p className="mt-1 text-sm font-semibold text-white">Operational impact</p>
+          <div className="absolute inset-x-[3%] top-[3%] overflow-hidden rounded-[2.8rem] border border-white/20 bg-slate-900/85 p-3 shadow-[0_40px_120px_rgba(0,0,0,0.55)] backdrop-blur-xl sm:inset-x-[8%] lg:inset-x-[2%]">
+            <div className="overflow-hidden rounded-[2.2rem] bg-slate-950">
+              <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+                <div className="flex gap-2">
+                  <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
                 </div>
-                <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
-                  <p className="text-xs text-slate-500">Delivery approach</p>
-                  <p className="mt-1 text-sm font-semibold text-white">End-to-end solutions</p>
-                </div>
+                <span className="text-[10px] uppercase tracking-[0.18em] text-slate-500">
+                  Selected solution
+                </span>
               </div>
 
-              <div className="mt-3 rounded-xl border border-cyan-400/15 bg-cyan-400/[0.04] p-4">
-                <div className="mb-3 flex items-center justify-between text-xs"><span className="text-slate-400">Process modernization</span><span className="text-cyan-300">Data + Software</span></div>
-                <div className="h-1.5 overflow-hidden rounded-full bg-slate-800"><div className="h-full w-[86%] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500" /></div>
+              <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-slate-900 via-slate-950 to-cyan-950">
+                <img
+                  src="/images/projects/coverage-gap.png"
+                  alt="Coverage GAP application preview"
+                  className="h-full w-full object-cover object-top opacity-90"
+                  onError={(event) => {
+                    event.currentTarget.style.display = "none"
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-7 sm:p-9">
+                  <p className="text-xs uppercase tracking-[0.2em] text-cyan-200">
+                    Python desktop application
+                  </p>
+                  <h2 className="mt-3 max-w-xl text-3xl font-semibold tracking-[-0.035em] sm:text-4xl">
+                    Turning commercial rules into a usable operational tool.
+                  </h2>
+                </div>
               </div>
             </div>
+          </div>
+
+          <div className="absolute bottom-[2%] left-[2%] max-w-[230px] rounded-[2rem] border border-white/15 bg-white/10 p-5 backdrop-blur-xl sm:left-[1%] lg:-left-[4%]">
+            <p className="text-xs uppercase tracking-[0.16em] text-cyan-100">My approach</p>
+            <p className="mt-2 text-sm leading-6 text-slate-200">
+              Understand the process, structure the data and build the right tool.
+            </p>
           </div>
         </motion.div>
       </div>
