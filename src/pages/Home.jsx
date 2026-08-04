@@ -6,6 +6,7 @@ import Metrics from "../components/Metrics"
 import WhatIBuild from "../components/WhatIBuild"
 import About from "../components/About"
 import Process from "../components/Process"
+import EngineeringPrinciples from "../components/EngineeringPrinciples"
 import Skills from "../components/Skills"
 import TechStack from "../components/TechStack"
 import Projects from "../components/Projects"
@@ -17,10 +18,10 @@ function Home() {
   return (
     <>
       <Helmet>
-        <title>Fernando Oropeza | Data, Automation & Software Solutions</title>
+        <title>Fernando Oropeza | Systems Solutions Engineer</title>
         <meta
           name="description"
-          content="Systems Engineer who transforms real business processes into desktop, web, Android, data, business intelligence and cloud solutions."
+          content="Systems Solutions Engineer who transforms real business processes into desktop, web, Android, data, business intelligence and cloud solutions."
         />
       </Helmet>
 
@@ -32,6 +33,7 @@ function Home() {
         <WhatIBuild />
         <About />
         <Process />
+        <EngineeringPrinciples />
         <Skills />
         <TechStack />
         <Projects />
