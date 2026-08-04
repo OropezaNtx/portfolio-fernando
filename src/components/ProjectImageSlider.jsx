@@ -68,7 +68,7 @@ function ProjectImageSlider({ images = [], title, className = "" }) {
           <button
             type="button"
             onClick={showPrevious}
-            className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/65 text-xl text-white opacity-0 backdrop-blur transition hover:bg-slate-900 group-hover:opacity-100 focus:opacity-100"
+            className="absolute left-4 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/65 text-xl text-white opacity-0 backdrop-blur transition hover:bg-slate-900 group-hover:opacity-100 focus:opacity-100"
             aria-label="Previous image"
           >
             ‹
@@ -76,13 +76,13 @@ function ProjectImageSlider({ images = [], title, className = "" }) {
           <button
             type="button"
             onClick={showNext}
-            className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/65 text-xl text-white opacity-0 backdrop-blur transition hover:bg-slate-900 group-hover:opacity-100 focus:opacity-100"
+            className="absolute right-4 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/65 text-xl text-white opacity-0 backdrop-blur transition hover:bg-slate-900 group-hover:opacity-100 focus:opacity-100"
             aria-label="Next image"
           >
             ›
           </button>
 
-          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+          <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-2">
             {normalizedImages.map((image, imageIndex) => (
               <button
                 key={image}
@@ -99,7 +99,7 @@ function ProjectImageSlider({ images = [], title, className = "" }) {
           </div>
 
           {!isPaused && (
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10">
+            <div className="absolute bottom-0 left-0 right-0 z-20 h-1 bg-white/10">
               <motion.div
                 key={index}
                 className="h-full bg-cyan-400"
@@ -113,7 +113,7 @@ function ProjectImageSlider({ images = [], title, className = "" }) {
       )}
 
       {isPaused && normalizedImages.length > 1 && (
-        <div className="absolute right-4 top-4 rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 text-xs text-slate-300 backdrop-blur">
+        <div className="absolute right-4 top-4 z-20 rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 text-xs text-slate-300 backdrop-blur">
           {index + 1} / {normalizedImages.length}
         </div>
       )}
