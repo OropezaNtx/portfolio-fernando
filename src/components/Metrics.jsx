@@ -3,19 +3,19 @@ import { motion } from "framer-motion"
 function Metrics() {
   const metrics = [
     {
-      value: "3+",
-      label: "Sectors",
-      description: "Finance, pharma and mobility projects.",
+      value: "3",
+      label: "Industries",
+      description: "Financial services, pharmaceuticals and mobility.",
     },
     {
-      value: "6+",
-      label: "Real projects",
-      description: "Data, automation, desktop, mobile and BI solutions.",
+      value: "8+",
+      label: "Featured solutions",
+      description: "Data engineering, automation, BI, desktop, web and mobile projects.",
     },
     {
-      value: "Data + Software",
+      value: "Data + Process + Software",
       label: "Hybrid profile",
-      description: "Able to connect analysis, automation and development.",
+      description: "Connecting operational needs with technical implementation.",
     },
   ]
 
@@ -33,17 +33,9 @@ function Metrics() {
             key={item.label}
             className="bg-slate-900/70 border border-slate-800 rounded-3xl p-6 text-center hover:border-cyan-400/70 transition"
           >
-            <h3 className="text-3xl font-bold text-cyan-400 mb-2">
-              {item.value}
-            </h3>
-
-            <p className="text-white font-semibold mb-2">
-              {item.label}
-            </p>
-
-            <p className="text-slate-400 text-sm">
-              {item.description}
-            </p>
+            <h3 className="text-3xl font-bold text-cyan-400 mb-2">{item.value}</h3>
+            <p className="text-white font-semibold mb-2">{item.label}</p>
+            <p className="text-slate-400 text-sm">{item.description}</p>
           </article>
         ))}
       </div>
