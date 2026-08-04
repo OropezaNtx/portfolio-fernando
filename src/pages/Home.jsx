@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async"
 import Navbar from "../components/Navbar"
+import Starfield from "../components/Starfield"
 import Hero from "../components/Hero"
 import Metrics from "../components/Metrics"
 import About from "../components/About"
@@ -22,17 +23,20 @@ function Home() {
         />
       </Helmet>
 
-      <Navbar />
-      <Hero />
-      <Metrics />
-      <Projects />
-      <Experience />
-      <Skills />
-      <TechStack />
-      <About />
-      <Process />
-      <Contact />
-      <Footer />
+      <Starfield />
+      <div className="relative z-10">
+        <Navbar />
+        <Hero />
+        <Metrics />
+        <Projects />
+        <Experience />
+        <Skills />
+        <TechStack />
+        <About />
+        <Process />
+        <Contact />
+        <Footer />
+      </div>
     </>
   )
 }
