@@ -1,95 +1,44 @@
 import { motion } from "framer-motion"
 
+const groups = [
+  ["Python", "SQL", "BigQuery", "Power BI", "Excel", "Pandas"],
+  ["React", "JavaScript", "Node.js", "FastAPI", "PostgreSQL", "Firebase", "Kotlin"],
+  ["Google Cloud", "SharePoint", "Power Automate", "Tableau", "QGIS", "Access"],
+]
+
 function TechStack() {
-  const tools = [
-    { name: "Python", logo: "/images/tools/python.png", level: "Core" },
-    { name: "SQL", logo: "/images/tools/sql.png", level: "Core" },
-    { name: "BigQuery", logo: "/images/tools/bigquery.png", level: "Core" },
-    { name: "Power BI", logo: "/images/tools/powerbi.png", level: "Core" },
-    { name: "React", logo: "/images/tools/react.png", level: "Web" },
-    { name: "JavaScript", logo: "/images/tools/javascript.png", level: "Web" },
-    { name: "Excel", logo: "/images/tools/excel.png", level: "Data" },
-    { name: "Google Cloud", logo: "/images/tools/gcp.png", level: "Cloud" },
-    { name: "Firebase", logo: "/images/tools/firebase.png", level: "Cloud" },
-    { name: "Kotlin", logo: "/images/tools/kotlin.png", level: "Mobile" },
-    { name: "Android", logo: "/images/tools/android.png", level: "Mobile" },
-    { name: "Node.js", logo: "/images/tools/nodejs.png", level: "Backend" },
-    { name: "Tableau", logo: "/images/tools/tableau.png", level: "BI" },
-    { name: "SQLite", logo: "/images/tools/sqlite.png", level: "DB" },
-    { name: "Access", logo: "/images/tools/access.png", level: "DB" },
-  ]
-
   return (
-    <motion.section
-      id="tech-stack"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-      className="relative overflow-hidden bg-slate-950 text-white py-24 px-6"
-    >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.14),_transparent_38%)]" />
-      <div className="absolute left-1/2 top-20 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
-      <div className="absolute right-10 bottom-10 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />
-
-      <div className="relative max-w-6xl mx-auto">
-        <div className="text-center mb-14">
-          <p className="text-cyan-400 mb-2">Tech Stack</p>
-
-          <h2 className="text-4xl font-bold">
-            Tools behind the solutions
-          </h2>
-
-          <p className="text-slate-400 mt-4 max-w-2xl mx-auto">
-            A visual overview of the technologies I use across data, automation,
-            cloud workflows and software development.
-          </p>
+    <section id="tech-stack" className="relative overflow-hidden border-y border-white/10 py-24 text-white">
+      <div className="absolute inset-0 bg-gradient-to-r from-cyan-950/20 via-transparent to-blue-950/20" />
+      <div className="section-shell relative mb-12 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="eyebrow mb-4">Technology</p>
+          <h2 className="text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">Tools that support the solution.</h2>
         </div>
-
-        <div className="flex flex-wrap justify-center gap-4">
-          {tools.map((tool, index) => {
-            const isCore = tool.level === "Core"
-
-            return (
-              <motion.div
-                key={tool.name}
-                initial={{ opacity: 0, scale: 0.9, y: 12 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.025 }}
-                viewport={{ once: true }}
-                className={`group relative flex items-center gap-3 rounded-full border bg-slate-900/70 backdrop-blur px-5 py-3 transition duration-300 hover:-translate-y-1 ${
-                  isCore
-                    ? "border-cyan-400/40 shadow-lg shadow-cyan-500/10"
-                    : "border-slate-800 hover:border-cyan-400/70"
-                }`}
-              >
-                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition bg-gradient-to-r from-cyan-400/10 to-blue-500/10" />
-
-                <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-slate-950 border border-slate-800">
-                  <img
-                    src={tool.logo}
-                    alt={`${tool.name} logo`}
-                    className="h-6 w-6 object-contain"
-                    onError={(event) => {
-                      event.currentTarget.style.display = "none"
-                    }}
-                  />
-                </div>
-
-                <div className="relative">
-                  <span className="block text-sm font-medium text-slate-200 group-hover:text-cyan-300 transition">
-                    {tool.name}
-                  </span>
-                  <span className="block text-[11px] text-slate-500">
-                    {tool.level}
-                  </span>
-                </div>
-              </motion.div>
-            )
-          })}
-        </div>
+        <p className="max-w-md text-sm leading-7 text-slate-400">Technology changes by project. The objective remains the same: build something useful, clear and maintainable.</p>
       </div>
-    </motion.section>
+
+      <div className="relative space-y-4">
+        {groups.map((group, rowIndex) => {
+          const items = [...group, ...group]
+          return (
+            <div key={group[0]} className="overflow-hidden">
+              <motion.div
+                animate={{ x: rowIndex % 2 === 0 ? ["0%", "-50%"] : ["-50%", "0%"] }}
+                transition={{ duration: 28 + rowIndex * 4, repeat: Infinity, ease: "linear" }}
+                className="flex w-max gap-4 px-2"
+              >
+                {items.map((tool, index) => (
+                  <span key={`${tool}-${index}`} className="whitespace-nowrap rounded-full border border-white/10 bg-white/[0.035] px-6 py-3 text-sm text-slate-300 backdrop-blur-sm">
+                    {tool}
+                  </span>
+                ))}
+              </motion.div>
+            </div>
+          )
+        })}
+      </div>
+    </section>
   )
 }
 
