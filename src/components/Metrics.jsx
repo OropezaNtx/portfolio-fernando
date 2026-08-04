@@ -2,35 +2,52 @@ import { motion } from "framer-motion"
 
 function Metrics() {
   const metrics = [
-    { value: "3", label: "Industries", description: "Finance, pharmaceuticals and mobility." },
-    { value: "8+", label: "Solutions", description: "Data, automation, BI, web, desktop and mobile." },
-    { value: "End-to-end", label: "Working style", description: "From process analysis to a usable technical solution." },
+    {
+      value: "3",
+      label: "Industries",
+      description: "Financial services, pharmaceuticals and mobility.",
+    },
+    {
+      value: "8+",
+      label: "Solutions",
+      description: "Data, automation, BI, desktop, web and mobile work.",
+    },
+    {
+      value: "End-to-end",
+      label: "Approach",
+      description: "From business understanding to a working technical solution.",
+    },
   ]
 
   return (
-    <section className="relative border-y border-white/[0.06] bg-slate-950/70 py-8 text-white">
-      <div className="section-shell grid gap-px overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.08] md:grid-cols-3">
+    <motion.section
+      initial={{ opacity: 0, y: 25 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      className="border-y border-white/10 bg-slate-950 px-6 py-12 text-white"
+    >
+      <div className="mx-auto grid max-w-[1280px] gap-9 md:grid-cols-3 md:gap-0">
         {metrics.map((item, index) => (
-          <motion.article
+          <article
             key={item.label}
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: index * 0.08 }}
-            viewport={{ once: true }}
-            className="group bg-slate-950/95 p-6 transition hover:bg-slate-900/90 md:p-8"
+            className={`md:px-10 ${index > 0 ? "md:border-l md:border-white/10" : ""}`}
           >
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="text-2xl font-semibold tracking-tight text-white md:text-3xl">{item.value}</p>
-                <p className="mt-1 text-sm font-medium text-cyan-300">{item.label}</p>
-              </div>
-              <span className="text-xs text-slate-700 transition group-hover:text-cyan-400">0{index + 1}</span>
+            <div className="flex items-baseline gap-3">
+              <span className="text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
+                {item.value}
+              </span>
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-200">
+                {item.label}
+              </span>
             </div>
-            <p className="mt-4 max-w-xs text-sm leading-6 text-slate-500">{item.description}</p>
-          </motion.article>
+            <p className="mt-3 max-w-sm text-sm leading-6 text-slate-400">
+              {item.description}
+            </p>
+          </article>
         ))}
       </div>
-    </section>
+    </motion.section>
   )
 }
 
