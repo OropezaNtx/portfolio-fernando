@@ -30,10 +30,10 @@ function Home() {
         <Metrics />
         <Projects />
         <Experience />
-        <Skills />
-        <TechStack />
         <About />
         <Process />
+        <Skills />
+        <TechStack />
         <Contact />
         <Footer />
       </div>
