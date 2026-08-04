@@ -1,179 +1,216 @@
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
+import { useState } from "react"
 
-const groups = [
+const categories = [
   {
-    number: "01",
-    title: "Data & Analytics",
-    description: "Data integration, transformation, analysis, visualization and reporting.",
-    accent: "cyan",
-    icon: "◉",
+    id: "core",
+    label: "Core stack",
+    description: "The technologies I use most often to integrate data, automate processes and deliver analytical solutions.",
     tools: [
-      { name: "Python", logo: "/images/tools/python.png" },
-      { name: "SQL", logo: "/images/tools/sql.png" },
-      { name: "BigQuery", logo: "/images/tools/bigquery.png" },
-      { name: "Power BI", logo: "/images/tools/powerbi.png" },
-      { name: "Excel", logo: "/images/tools/excel.png" },
-      { name: "Tableau", logo: "/images/tools/tableau.png" },
+      ["Python", "/images/tools/python.png"],
+      ["SQL", "/images/tools/sql.png"],
+      ["BigQuery", "/images/tools/bigquery.png"],
+      ["Power BI", "/images/tools/powerbi.png"],
+      ["Excel", "/images/tools/excel.png"],
+      ["Pandas", "/images/tools/pandas.png"],
+      ["Jupyter", "/images/tools/jupyter.png"],
+      ["Google Cloud", "/images/tools/gcp.png"],
     ],
   },
   {
-    number: "02",
-    title: "Software Development",
-    description: "Building applications, APIs and practical automation tools.",
-    accent: "blue",
-    icon: "</>",
+    id: "data",
+    label: "Data & BI",
+    description: "Tools for data preparation, modeling, reporting, indicators and business-oriented analysis.",
     tools: [
-      { name: "React", logo: "/images/tools/react.png" },
-      { name: "JavaScript", logo: "/images/tools/javascript.png" },
-      { name: "Node.js", logo: "/images/tools/nodejs.png" },
-      { name: "FastAPI", logo: "/images/tools/fastapi.png" },
-      { name: "PostgreSQL", logo: "/images/tools/postgresql.png" },
-      { name: "Firebase", logo: "/images/tools/firebase.png" },
-      { name: "Kotlin", logo: "/images/tools/kotlin.png" },
-      { name: "Android", logo: "/images/tools/android.png" },
+      ["Power Query", "/images/tools/powerquery.png"],
+      ["Power Pivot", "/images/tools/powerpivot.png"],
+      ["Tableau", "/images/tools/tableau.png"],
+      ["Access", "/images/tools/access.png"],
+      ["MySQL", "/images/tools/mysql.png"],
+      ["PostgreSQL", "/images/tools/postgresql.png"],
+      ["SQLite", "/images/tools/sqlite.png"],
+      ["R", "/images/tools/r.png"],
+      ["VBA", "/images/tools/vba.png"],
+      ["Data Modeling", "/images/tools/datamodeling.png"],
     ],
   },
   {
-    number: "03",
-    title: "Cloud & Operations",
-    description: "Cloud platforms, collaboration tools and operational workflows.",
-    accent: "violet",
-    icon: "☁",
+    id: "development",
+    label: "Development",
+    description: "Technologies used to build web, desktop, mobile, API and data-processing solutions.",
     tools: [
-      { name: "Google Cloud", logo: "/images/tools/gcp.png" },
-      { name: "SharePoint", logo: "/images/tools/sharepoint.png" },
-      { name: "Power Automate", logo: "/images/tools/powerautomate.png" },
-      { name: "QGIS", logo: "/images/tools/qgis.png" },
-      { name: "SQLite", logo: "/images/tools/sqlite.png" },
-      { name: "Access", logo: "/images/tools/access.png" },
+      ["React", "/images/tools/react.png"],
+      ["JavaScript", "/images/tools/javascript.png"],
+      ["Node.js", "/images/tools/nodejs.png"],
+      ["FastAPI", "/images/tools/fastapi.png"],
+      ["SQLAlchemy", "/images/tools/sqlalchemy.png"],
+      ["Kotlin", "/images/tools/kotlin.png"],
+      ["Android", "/images/tools/android.png"],
+      ["Firebase", "/images/tools/firebase.png"],
+      ["Tkinter", "/images/tools/tkinter.png"],
+      ["PyInstaller", "/images/tools/pyinstaller.png"],
+      ["Git", "/images/tools/git.png"],
+      ["GitHub", "/images/tools/github.png"],
+    ],
+  },
+  {
+    id: "cloud",
+    label: "Cloud & Enterprise",
+    description: "Platforms for collaboration, deployment, business workflows and enterprise operations.",
+    tools: [
+      ["SharePoint", "/images/tools/sharepoint.png"],
+      ["Power Automate", "/images/tools/powerautomate.png"],
+      ["Dataverse", "/images/tools/dataverse.png"],
+      ["OneDrive", "/images/tools/onedrive.png"],
+      ["Microsoft 365", "/images/tools/microsoft365.png"],
+      ["Docker", "/images/tools/docker.png"],
+      ["Swagger", "/images/tools/swagger.png"],
+      ["pgAdmin", "/images/tools/pgadmin.png"],
+      ["SAP", "/images/tools/sap.png"],
+      ["Huawei DevCloud", "/images/tools/huawei.png"],
+    ],
+  },
+  {
+    id: "geo",
+    label: "Geospatial",
+    description: "Software and formats used in mobility studies, route validation, mapping and territorial analysis.",
+    tools: [
+      ["QGIS", "/images/tools/qgis.png"],
+      ["Google Earth", "/images/tools/googleearth.png"],
+      ["AutoCAD", "/images/tools/autocad.png"],
+      ["GPX", "/images/tools/gpx.png"],
+      ["GDB", "/images/tools/gdb.png"],
+      ["KMZ", "/images/tools/kmz.png"],
+      ["GPS Data", "/images/tools/gps.png"],
+      ["Territorial Data", "/images/tools/map.png"],
+    ],
+  },
+  {
+    id: "automation",
+    label: "Automation & Quality",
+    description: "Tools and techniques for validation, extraction, testing, traceability and controlled workflows.",
+    tools: [
+      ["OCR", "/images/tools/ocr.png"],
+      ["PaddleOCR", "/images/tools/paddleocr.png"],
+      ["Playwright", "/images/tools/playwright.png"],
+      ["spaCy", "/images/tools/spacy.png"],
+      ["Text Similarity", "/images/tools/nlp.png"],
+      ["QR Workflows", "/images/tools/qr.png"],
+      ["Data Validation", "/images/tools/validation.png"],
+      ["Traceability", "/images/tools/traceability.png"],
     ],
   },
 ]
 
-const accentStyles = {
-  cyan: {
-    number: "border-cyan-300/55 text-cyan-200 shadow-[0_0_28px_rgba(34,211,238,0.16)]",
-    icon: "text-cyan-300",
-    panel: "tech-panel-cyan",
-  },
-  blue: {
-    number: "border-blue-400/55 text-blue-300 shadow-[0_0_28px_rgba(59,130,246,0.16)]",
-    icon: "text-blue-400",
-    panel: "tech-panel-blue",
-  },
-  violet: {
-    number: "border-violet-400/55 text-violet-300 shadow-[0_0_28px_rgba(168,85,247,0.16)]",
-    icon: "text-violet-400",
-    panel: "tech-panel-violet",
-  },
+function ToolIcon({ name, logo }) {
+  const initials = name
+    .split(/\s+/)
+    .map((word) => word[0])
+    .join("")
+    .slice(0, 2)
+
+  return (
+    <div className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-slate-950/80">
+      <span className="absolute text-[9px] font-bold text-slate-500">{initials}</span>
+      <img
+        src={logo}
+        alt=""
+        className="relative z-10 h-5 w-5 object-contain"
+        onError={(event) => {
+          event.currentTarget.style.display = "none"
+        }}
+      />
+    </div>
+  )
 }
 
 function TechStack() {
+  const [activeId, setActiveId] = useState("core")
+  const activeCategory = categories.find((category) => category.id === activeId) ?? categories[0]
+
   return (
-    <section
-      id="tech-stack"
-      className="relative overflow-hidden border-y border-white/10 py-24 text-white lg:py-32"
-    >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(37,99,235,0.08),transparent_34rem)]" />
+    <section id="tech-stack" className="relative overflow-hidden border-y border-white/10 py-24 text-white lg:py-32">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(59,130,246,0.07),_transparent_52%)]" />
 
       <div className="section-shell relative">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mx-auto mb-16 max-w-3xl text-center lg:mb-20"
-        >
-          <p className="eyebrow mb-4 justify-center">Technology stack</p>
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="eyebrow mb-4">Technology stack</p>
           <h2 className="text-4xl font-semibold tracking-[-0.045em] sm:text-5xl lg:text-6xl">
-            Tools that <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-violet-400 bg-clip-text text-transparent">power the solution.</span>
+            Tools that <span className="bg-gradient-to-r from-cyan-300 via-sky-400 to-violet-400 bg-clip-text text-transparent">power the solution.</span>
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-slate-400 sm:text-lg">
-            These are the technologies and platforms I use to design, build and deliver data, automation and software solutions.
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-slate-400">
+            A broad technical toolkit built through corporate projects, independent products and continuous learning.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="space-y-10 lg:space-y-12">
-          {groups.map((group, groupIndex) => {
-            const accent = accentStyles[group.accent]
-
+        <div className="mt-12 flex flex-wrap justify-center gap-2">
+          {categories.map((category) => {
+            const isActive = category.id === activeId
             return (
-              <motion.article
-                key={group.title}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: groupIndex * 0.08 }}
-                viewport={{ once: true, amount: 0.25 }}
-                className="grid gap-6 lg:grid-cols-[250px_minmax(0,1fr)] lg:items-center lg:gap-10"
+              <button
+                key={category.id}
+                type="button"
+                onClick={() => setActiveId(category.id)}
+                className={`relative rounded-full border px-4 py-2 text-sm transition ${
+                  isActive
+                    ? "border-cyan-300/50 text-white"
+                    : "border-white/10 text-slate-500 hover:border-white/20 hover:text-slate-300"
+                }`}
               >
-                <div className="grid grid-cols-[auto_1fr] items-start gap-4 lg:grid-cols-[auto_1fr]">
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-full border bg-slate-950/65 text-sm font-semibold backdrop-blur ${accent.number}`}>
-                    {group.number}
-                  </div>
-
-                  <div>
-                    <div className="flex items-center gap-3">
-                      <span className={`text-lg font-semibold ${accent.icon}`}>{group.icon}</span>
-                      <h3 className="text-xl font-semibold tracking-[-0.025em] text-white sm:text-2xl">
-                        {group.title}
-                      </h3>
-                    </div>
-                    <p className="mt-3 max-w-xs text-sm leading-6 text-slate-400">
-                      {group.description}
-                    </p>
-                  </div>
-                </div>
-
-                <div className={`tech-row-panel ${accent.panel}`}>
-                  <span className="tech-row-glow" />
-                  <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
-                    {group.tools.map((tool, toolIndex) => (
-                      <motion.div
-                        key={tool.name}
-                        initial={{ opacity: 0, y: 12 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.35, delay: groupIndex * 0.08 + toolIndex * 0.035 }}
-                        viewport={{ once: true }}
-                        className="tech-tool group"
-                      >
-                        <span className="tech-icon-shell">
-                          <img
-                            src={tool.logo}
-                            alt={`${tool.name} logo`}
-                            className="h-6 w-6 object-contain transition duration-300 group-hover:scale-110"
-                            onError={(event) => {
-                              event.currentTarget.style.display = "none"
-                            }}
-                          />
-                        </span>
-                        <span className="text-xs font-medium text-slate-200 sm:text-sm">
-                          {tool.name}
-                        </span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </motion.article>
+                {isActive && (
+                  <motion.span
+                    layoutId="technology-active-tab"
+                    className="absolute inset-0 -z-10 rounded-full bg-cyan-300/10 shadow-[0_0_28px_rgba(34,211,238,0.12)]"
+                  />
+                )}
+                {category.label}
+              </button>
             )
           })}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.25 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center lg:mt-20"
-        >
-          <span className="inline-flex items-center gap-3 text-sm text-slate-400">
-            <span className="h-px w-10 bg-gradient-to-r from-transparent to-cyan-400/70" />
-            <span className="text-cyan-300">&lt;/&gt;</span>
-            <span className="h-px w-10 bg-gradient-to-r from-violet-400/70 to-transparent" />
-          </span>
-          <p className="mt-4 text-sm text-slate-400 sm:text-base">
-            Always learning. Always building. Always solving.
-          </p>
-        </motion.div>
+        <div className="mx-auto mt-10 max-w-6xl rounded-[2rem] border border-white/10 bg-slate-950/45 p-5 shadow-[0_30px_100px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:p-7">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCategory.id}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.28 }}
+            >
+              <div className="mb-7 grid gap-4 border-b border-white/10 pb-6 md:grid-cols-[0.34fr_0.66fr] md:items-end">
+                <div>
+                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
+                    {String(categories.findIndex((category) => category.id === activeCategory.id) + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em]">{activeCategory.label}</h3>
+                </div>
+                <p className="max-w-2xl text-sm leading-7 text-slate-400">{activeCategory.description}</p>
+              </div>
+
+              <motion.div layout className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                {activeCategory.tools.map(([name, logo], index) => (
+                  <motion.div
+                    key={name}
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.25, delay: index * 0.025 }}
+                    whileHover={{ y: -3 }}
+                    className="group flex min-h-14 items-center gap-3 rounded-2xl border border-white/[0.08] bg-white/[0.025] px-3 py-2.5 transition hover:border-cyan-300/25 hover:bg-white/[0.05]"
+                  >
+                    <ToolIcon name={name} logo={logo} />
+                    <span className="text-xs font-medium text-slate-300 transition group-hover:text-white sm:text-sm">{name}</span>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <div className="mx-auto mt-8 flex max-w-6xl flex-col gap-3 border-t border-white/10 pt-6 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+          <p>Huawei DevCloud certification · Enterprise, cloud and development foundations</p>
+          <p className="text-slate-600">Always learning. Always building. Always solving.</p>
+        </div>
       </div>
     </section>
   )
