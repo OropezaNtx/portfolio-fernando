@@ -2,76 +2,59 @@ import { motion } from "framer-motion"
 
 function Contact() {
   return (
-    <motion.section
-      id="contact"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-      className="bg-slate-900 text-white py-24 px-6"
-    >
-      <div className="max-w-4xl mx-auto text-center">
-        <p className="text-cyan-400 mb-2">Contact</p>
+    <section id="contact" className="relative overflow-hidden bg-slate-950/78 py-28 text-white backdrop-blur-[2px] md:py-40">
+      <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
+      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-cyan-950/25 to-transparent" />
 
-        <h2 className="text-4xl font-bold mb-6">
-          Available for data, automation and software roles
+      <motion.div
+        initial={{ opacity: 0, y: 34 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.75 }}
+        viewport={{ once: true }}
+        className="section-shell relative text-center"
+      >
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">Let&apos;s build something useful</p>
+
+        <h2 className="mx-auto mt-7 max-w-5xl text-5xl font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-7xl">
+          Ready for the next challenge in data, automation or software.
         </h2>
 
-        <p className="text-slate-400 mb-8">
-          Open to opportunities in data engineering, automation, and software development.
+        <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-slate-300">
+          I am interested in roles where I can understand real operational needs and transform them into clear, practical technology solutions.
         </p>
 
-        <div className="grid md:grid-cols-3 gap-4 mb-10 text-left">
-          <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5">
-            <p className="text-cyan-400 font-semibold mb-2">Data Roles</p>
-            <p className="text-slate-400 text-sm">
-              SQL, BigQuery, Power BI, data quality and analytics.
-            </p>
-          </div>
-
-          <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5">
-            <p className="text-cyan-400 font-semibold mb-2">Automation</p>
-            <p className="text-slate-400 text-sm">
-              Python tools, process automation and internal systems.
-            </p>
-          </div>
-
-          <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5">
-            <p className="text-cyan-400 font-semibold mb-2">Software</p>
-            <p className="text-slate-400 text-sm">
-              Web, desktop and mobile applications for real workflows.
-            </p>
-          </div>
-        </div>
-
-        <div className="flex flex-col md:flex-row justify-center gap-6">
+        <div className="mt-12 flex flex-col justify-center gap-3 sm:flex-row">
           <a
             href="mailto:foropeza0526@gmail.com"
-            className="bg-cyan-400 text-slate-950 px-6 py-3 rounded-xl font-semibold hover:bg-cyan-300 hover:scale-105 active:scale-95 transition"
+            className="inline-flex items-center justify-center rounded-full bg-white px-8 py-4 font-semibold text-slate-950 transition hover:scale-[1.02] hover:bg-cyan-100"
           >
-            Send Email
+            Send me an email
           </a>
-
           <a
             href="https://www.linkedin.com/"
             target="_blank"
             rel="noreferrer"
-            className="border border-slate-700 px-6 py-3 rounded-xl hover:border-cyan-400 hover:text-cyan-400 hover:scale-105 active:scale-95 transition"
+            className="inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-4 font-medium text-white transition hover:border-white/45 hover:bg-white/5"
           >
-            LinkedIn
+            View LinkedIn
           </a>
-
           <a
-            href="https://github.com/fernando-oropeza-83a31b220"
+            href="https://github.com/OropezaNtx"
             target="_blank"
             rel="noreferrer"
-            className="border border-slate-700 px-6 py-3 rounded-xl hover:border-cyan-400 hover:text-cyan-400 hover:scale-105 active:scale-95 transition"
+            className="inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-4 font-medium text-white transition hover:border-white/45 hover:bg-white/5"
           >
-            GitHub
+            View GitHub
           </a>
         </div>
-      </div>
-    </motion.section>
+
+        <div className="mx-auto mt-16 grid max-w-3xl gap-5 border-t border-white/10 pt-8 text-sm text-slate-400 sm:grid-cols-3">
+          <span>Mexico City</span>
+          <span>English: technical intermediate</span>
+          <span>Open to professional opportunities</span>
+        </div>
+      </motion.div>
+    </section>
   )
 }
 
