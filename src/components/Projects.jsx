@@ -8,7 +8,7 @@ const brandConfig = {
   afora: {
     logo: "/images/brands/afora.png",
     mark: "A",
-    eyebrow: "Product platform",
+    eyebrow: "Android + Web product",
     accent: "from-orange-400/25 via-rose-400/10 to-transparent",
     border: "hover:border-orange-300/35",
     text: "text-orange-200",
@@ -16,7 +16,7 @@ const brandConfig = {
   politycs: {
     logo: "/images/brands/politycs.png",
     mark: "P",
-    eyebrow: "Territorial intelligence",
+    eyebrow: "Web data platform",
     accent: "from-violet-500/25 via-fuchsia-400/10 to-transparent",
     border: "hover:border-violet-300/35",
     text: "text-violet-200",
@@ -24,7 +24,7 @@ const brandConfig = {
   mobilytics: {
     logo: "/images/brands/mobilytics.png",
     mark: "M",
-    eyebrow: "Consulting & automation",
+    eyebrow: "Solutions business",
     accent: "from-cyan-400/25 via-blue-400/10 to-transparent",
     border: "hover:border-cyan-300/35",
     text: "text-cyan-200",
@@ -65,12 +65,12 @@ function Projects() {
 
       <div className="relative mx-auto max-w-[1280px]">
         <div className="mb-20 max-w-4xl lg:mb-28">
-          <p className="eyebrow mb-5">Selected work</p>
+          <p className="eyebrow mb-5">Featured solutions</p>
           <h2 className="text-5xl font-semibold tracking-[-0.05em] sm:text-6xl lg:text-7xl">
-            Real solutions designed around real processes.
+            Systems designed around real operations.
           </h2>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-400">
-            Professional implementations, independent products and commissioned work where data, automation and software were combined to solve operational needs.
+            Each case study explains the users, operational problem, architecture, transformation and result—not only the technologies used to build it.
           </p>
         </div>
 
@@ -107,22 +107,25 @@ function Projects() {
 
               <div className="max-w-xl">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200">
-                  Professional case study · {project.category}
+                  {project.platform}
                 </p>
                 <h3 className="mt-5 text-4xl font-semibold tracking-[-0.045em] sm:text-6xl">
                   {project.title}
                 </h3>
+                <p className="mt-5 text-sm uppercase tracking-[0.15em] text-slate-500">
+                  For {project.audience}
+                </p>
                 <p className="mt-7 text-lg leading-8 text-slate-300">{project.impact}</p>
-                <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-500">
+                <div className="mt-8 flex flex-wrap gap-2">
                   {project.tech.slice(0, 5).map((tech) => (
-                    <span key={tech}>{tech}</span>
+                    <span key={tech} className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-slate-500">{tech}</span>
                   ))}
                 </div>
                 <Link
                   to={`/project/${project.id}`}
                   className="mt-10 inline-flex items-center gap-3 border-b border-cyan-200/40 pb-1 text-sm font-semibold text-cyan-100 transition hover:border-cyan-100"
                 >
-                  View case study <span>↗</span>
+                  Explore solution <span>↗</span>
                 </Link>
               </div>
             </motion.article>
@@ -132,13 +135,13 @@ function Projects() {
         <div className="mt-32 border-t border-white/10 pt-16 lg:mt-44 lg:pt-20">
           <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
             <div>
-              <p className="eyebrow mb-4">Independent products & commissioned work</p>
+              <p className="eyebrow mb-4">Own products & solutions business</p>
               <h3 className="text-4xl font-semibold tracking-[-0.045em] sm:text-5xl">
-                Products built with ownership, vision and real implementation.
+                Product ideas built with ownership and a clear operational purpose.
               </h3>
             </div>
             <p className="max-w-2xl text-base leading-8 text-slate-400 lg:justify-self-end">
-              These initiatives represent the entrepreneurial side of my profile: products and services designed from the problem definition to the technical implementation.
+              AFORA, POLITYCS and MOBILYTICS represent the entrepreneurial side of my profile: product definition, platform architecture, implementation planning and commercial delivery.
             </p>
           </div>
 
@@ -165,7 +168,8 @@ function Projects() {
                     </div>
 
                     <h4 className="mt-8 text-3xl font-semibold tracking-[-0.04em]">{project.title}</h4>
-                    <p className="mt-4 min-h-24 text-sm leading-7 text-slate-400">{project.impact}</p>
+                    <p className="mt-3 text-xs uppercase tracking-[0.14em] text-slate-600">{project.platform}</p>
+                    <p className="mt-5 min-h-24 text-sm leading-7 text-slate-400">{project.impact}</p>
 
                     <div className="mt-6 flex flex-wrap gap-2">
                       {project.tech.slice(0, 4).map((tech) => (
@@ -194,7 +198,7 @@ function Projects() {
               <div>
                 <p className="eyebrow mb-4">Additional case studies</p>
                 <h3 className="text-3xl font-semibold tracking-[-0.035em] sm:text-4xl">
-                  More systems, data and field solutions
+                  More systems, quality and field-data solutions
                 </h3>
               </div>
               <p className="max-w-md text-sm leading-6 text-slate-500">
@@ -210,7 +214,7 @@ function Projects() {
                   className="group grid gap-4 py-8 transition hover:pl-3 sm:grid-cols-[1fr_auto] sm:items-center"
                 >
                   <div>
-                    <p className="text-xs uppercase tracking-[0.16em] text-slate-500">{project.category}</p>
+                    <p className="text-xs uppercase tracking-[0.16em] text-slate-500">{project.platform}</p>
                     <h4 className="mt-2 text-2xl font-medium tracking-[-0.025em] text-slate-100 transition group-hover:text-cyan-100">
                       {project.title}
                     </h4>
