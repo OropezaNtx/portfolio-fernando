@@ -12,12 +12,12 @@ function Navbar() {
   }, [])
 
   const links = [
+    { label: "Solutions", href: "#solutions" },
+    { label: "Profile", href: "#about" },
+    { label: "Capabilities", href: "#capabilities" },
+    { label: "Technology", href: "#tech-stack" },
     { label: "Work", href: "#projects" },
     { label: "Experience", href: "#experience" },
-    { label: "About", href: "#about" },
-    { label: "Process", href: "#process" },
-    { label: "Capabilities", href: "#skills" },
-    { label: "Contact", href: "#contact" },
   ]
 
   const navigateToSection = (event, href) => {
@@ -50,7 +50,7 @@ function Navbar() {
           <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 transition group-hover:scale-150" />
         </a>
 
-        <ul className="hidden items-center gap-6 xl:flex">
+        <ul className="hidden items-center gap-5 xl:flex">
           {links.map((item) => (
             <li key={item.label}>
               <a
@@ -65,11 +65,7 @@ function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-5 lg:flex">
-          <a
-            href="/cv.pdf"
-            download
-            className="text-sm text-slate-300 transition hover:text-white"
-          >
+          <a href="/cv.pdf" download className="text-sm text-slate-300 transition hover:text-white">
             Download CV
           </a>
           <a
@@ -105,11 +101,7 @@ function Navbar() {
                 {item.label}
               </a>
             ))}
-            <a
-              href="/cv.pdf"
-              download
-              className="mt-5 rounded-full bg-white px-5 py-3 text-center font-semibold text-slate-950"
-            >
+            <a href="/cv.pdf" download className="mt-5 rounded-full bg-white px-5 py-3 text-center font-semibold text-slate-950">
               Download CV
             </a>
           </div>
