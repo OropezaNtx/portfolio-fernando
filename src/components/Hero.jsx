@@ -4,7 +4,7 @@ function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center overflow-hidden bg-slate-950 pt-28 text-white"
+      className="relative flex min-h-screen items-center overflow-hidden bg-slate-950/82 pt-28 text-white backdrop-blur-[2px]"
     >
       <div className="hero-orb hero-orb-one" />
       <div className="hero-orb hero-orb-two" />
