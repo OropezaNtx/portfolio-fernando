@@ -1,138 +1,98 @@
 export const projects = [
   {
+    id: "commercial-data-integration",
+    title: "Commercial Data Integration & Performance Analytics",
+    category: "Data Engineering · SQL · Business Intelligence",
+    tech: ["SQL", "BigQuery", "Power BI", "Python", "Data Modeling"],
+    image: "/images/projects/bigquery.png",
+    problem:
+      "Commercial information was distributed across multiple operational sources, making it difficult to follow affiliations, coverage, visits, billing and sales performance consistently.",
+    solution:
+      "Designed BigQuery processes to integrate, standardize and transform information from affiliations, executives, campaigns, industries, visits, coverage and billing. Added calculations, validations, commercial criteria and dashboard-ready datasets.",
+    impact:
+      "Created a centralized analytical foundation for operational follow-up, executive support, performance analysis and business decision-making.",
+    metrics: [
+      "Integrated multiple commercial data domains",
+      "Applied traceable business rules and validations",
+      "Prepared analytical datasets for Power BI and operational reporting",
+    ],
+    responsibilities: [
+      "Designed advanced SQL transformations",
+      "Implemented business rules and calculated classifications",
+      "Standardized and reconciled source information",
+      "Supported operational inquiries and dashboard development",
+    ],
+  },
+  {
     id: "coverage-gap-form",
     title: "Coverage GAP Form",
-    category: "Data Capture · Automation · Desktop App",
-    tech: ["Python", "Tkinter", "SQLite", "Excel", "PyInstaller"],
+    category: "Data Capture · Automation · Desktop Application",
+    tech: ["Python", "Pandas", "Desktop UI", "Excel", "PyInstaller"],
     image: "/images/projects/coverage-gap.png",
-
-    github: "https://github.com/OropezaNtx/my-portfolio.git",
-
     problem:
-      "Commercial teams needed a structured way to capture, validate and consolidate operational records while reducing manual errors and inconsistencies.",
+      "Commercial teams needed a structured way to capture merchant and sales information while reducing incomplete records, inconsistent formats and manual validation work.",
     solution:
-      "Built a desktop platform with dynamic forms, validation rules, local database storage, import/export workflows, audit tracking and business logic for Coverage GAP classification.",
+      "Developed a Python desktop application with field validations, autocomplete, calculated values, business rules and controlled import and export workflows for executive use.",
     impact:
-      "Improved data quality, reduced manual errors and created a more reliable process for commercial record management.",
+      "Standardized commercial data capture, reduced preventable errors and improved the quality of information used by downstream reporting processes.",
     metrics: [
-      "Automated manual validation flows",
-      "Improved record consistency",
-      "Enabled structured local data capture",
+      "Automated field and business-rule validation",
+      "Standardized merchant and sales records",
+      "Enabled controlled import and export workflows",
     ],
     responsibilities: [
-      "Designed the application architecture",
-      "Built the Tkinter interface",
-      "Implemented SQLite persistence",
-      "Created import/export workflows",
-      "Added validation and audit logic",
+      "Designed the application workflow and interface",
+      "Implemented validations and autocomplete behavior",
+      "Built calculated classifications and business rules",
+      "Prepared executable distribution and user workflows",
     ],
   },
   {
-    id: "bigquery-analytics",
-    title: "BigQuery Analytics",
-    category: "Data Engineering · SQL · BI",
-    tech: ["SQL", "BigQuery", "Power BI", "Data Modeling"],
-    image: "/images/projects/bigquery.png",
-
-    github: "https://github.com/TU_USUARIO/bigquery-analytics",
-
+    id: "naf-automation",
+    title: "NAF Commercial Classification Automation",
+    category: "Automation · Data Integration · Commercial Rules",
+    tech: ["Python", "Pandas", "BigQuery", "SQL", "Jupyter", "Excel"],
+    image: "/images/projects/naf-automation.png",
     problem:
-      "Business data was distributed across multiple sources, making it difficult to analyze performance, segmentation and commercial coverage accurately.",
+      "Merchant promotion and payment classifications required manual reconciliation of operational and billing information from different files and data sources.",
     solution:
-      "Developed SQL pipelines, unified datasets and analytical queries in BigQuery for Coverage GAP, segmentation, sales metrics and executive reporting.",
+      "Automated the integration, standardization and classification process using Python and BigQuery, applying billing calculations, commercial thresholds and traceable inclusion or exclusion criteria.",
     impact:
-      "Enabled cleaner reporting, stronger business insights and better data consolidation for decision-making.",
+      "Reduced manual review, centralized classification criteria and accelerated preparation of operational deliverables.",
     metrics: [
-      "Unified multiple business sources",
-      "Improved analytical consistency",
-      "Prepared data for Power BI dashboards",
+      "Centralized commercial classification rules",
+      "Automated billing-based evaluations",
+      "Generated structured outputs for operational teams",
     ],
     responsibilities: [
-      "Built advanced SQL queries",
-      "Designed business logic in BigQuery",
-      "Created calculated fields and segmentation logic",
-      "Supported dashboard-ready datasets",
-    ],
-  },
-  {
-    id: "pos-system",
-    title: "POS System",
-    category: "Desktop App · Business Software",
-    tech: ["Python", "Tkinter", "SQLite", "Inventory Logic"],
-    image: "/images/projects/pos.png",
-
-    github: "https://github.com/TU_USUARIO/pos-system",
-
-    problem:
-      "Small businesses often manage sales, inventory and cash control manually, increasing operational risk and reducing visibility.",
-    solution:
-      "Developed a point-of-sale system with product management, sales records, user roles, tickets, inventory control and operational flows.",
-    impact:
-      "Digitized core sales operations and improved control over inventory, transactions and daily business activity.",
-    metrics: [
-      "Centralized sales operations",
-      "Improved inventory control",
-      "Reduced manual tracking",
-    ],
-    responsibilities: [
-      "Designed database structure",
-      "Built sales and inventory modules",
-      "Implemented ticket generation",
-      "Created user and role logic",
-    ],
-  },
-  {
-    id: "android-field-app",
-    title: "Android Field App",
-    category: "Mobile App · Field Operations",
-    tech: ["Kotlin", "Jetpack Compose", "Room", "GPS", "Firebase"],
-    image: "/images/projects/android-field.png",
-
-    github: "https://github.com/TU_USUARIO/android-field-app",
-
-    problem:
-      "Field data collection for transport and market studies can be inconsistent, manual and hard to validate.",
-    solution:
-      "Designed a mobile app for structured field capture, GPS-based records, offline operation and study-specific modules.",
-    impact:
-      "Standardized field data collection and created a foundation for real-time reporting and operational monitoring.",
-    metrics: [
-      "Structured mobile capture",
-      "Offline-first approach",
-      "GPS-based evidence collection",
-    ],
-    responsibilities: [
-      "Designed mobile workflows",
-      "Modeled Room database entities",
-      "Built Jetpack Compose screens",
-      "Planned Firebase synchronization",
+      "Integrated operational layouts and billing sources",
+      "Implemented classification and threshold logic",
+      "Built quality controls and traceable outputs",
+      "Automated preparation of final deliverables",
     ],
   },
   {
     id: "qr-traceability",
     title: "QR Traceability System",
-    category: "Automation · Quality Control",
+    category: "Automation · Pharmaceutical Quality Control",
     tech: ["Python", "Access", "SQL", "Power BI", "Excel"],
     image: "/images/projects/qr-traceability.png",
-
-    github: "https://github.com/TU_USUARIO/qr-traceability",
-
     problem:
-      "Production file tracking relied on manual and paper-based workflows, making traceability slower and less reliable.",
+      "Batch records and quality documentation relied heavily on manual and paper-based workflows, slowing identification and traceability.",
     solution:
-      "Built a QR code generator connected to an Access database with SQL queries, enabling faster identification and tracking of production batches.",
+      "Developed a QR solution connected to a centralized Access database, supported by Python and SQL, to identify batches, retrieve records and strengthen digital traceability.",
     impact:
-      "Improved traceability, reduced manual lookup time and supported digital control of quality documentation.",
+      "Improved access to batch information, supported paperless controls and strengthened quality-process monitoring.",
     metrics: [
-      "Improved batch traceability",
-      "Reduced paper-based tracking",
-      "Supported digital quality control",
+      "Improved batch identification and traceability",
+      "Reduced dependence on paper-based lookup",
+      "Supported quality dashboards and operational monitoring",
     ],
     responsibilities: [
-      "Designed Access database structure",
-      "Built QR generator in Python",
-      "Connected SQL queries",
-      "Supported Power BI reporting",
+      "Designed the database structure",
+      "Developed QR generation and consultation workflows",
+      "Connected records through SQL queries",
+      "Supported Power BI indicators and process documentation",
     ],
   },
   {
@@ -141,25 +101,94 @@ export const projects = [
     category: "Geospatial Data · Mobility Studies",
     tech: ["Python", "GPX", "GDB", "KMZ", "QGIS", "Google Earth", "Excel"],
     image: "/images/projects/gps-tools.png",
-
-    github: "https://github.com/TU_USUARIO/gps-tools",
-
     problem:
-      "Mobility studies required cleaning, segmenting and validating GPS routes manually across different geospatial formats.",
+      "Mobility studies required time-consuming cleaning, segmentation and validation of GPS routes across multiple geospatial formats.",
     solution:
-      "Developed tools to process GPX/GDB/KMZ files, analyze waypoints, detect signal loss, segment routes and generate structured Excel outputs.",
+      "Developed tools and procedures to process GPX, GDB and KMZ files, validate routes, identify inconsistencies and generate consolidated databases, maps and technical outputs.",
     impact:
-      "Accelerated GPS data analysis for transport studies and improved the quality of deliverables for mobility projects.",
+      "Accelerated mobility-data preparation, improved deliverable quality and supported projects developed across different regions of Mexico.",
     metrics: [
-      "Automated GPS route processing",
-      "Detected signal loss",
-      "Generated structured Excel reports",
+      "Automated route processing and validation",
+      "Integrated multiple geospatial formats",
+      "Generated structured databases, maps and reports",
     ],
     responsibilities: [
-      "Processed GPX/GDB/KMZ files",
-      "Built route segmentation logic",
-      "Generated Excel reports",
-      "Supported mobility deliverables",
+      "Processed and standardized geospatial information",
+      "Created route and waypoint validation logic",
+      "Coordinated quality-control and field teams",
+      "Prepared technical deliverables and operating procedures",
+    ],
+  },
+  {
+    id: "afora",
+    title: "AFORA",
+    category: "Product Development · Web & Mobile Platform",
+    tech: ["Kotlin", "Firebase", "React", "Data Validation", "Field Operations"],
+    image: "/images/projects/android-field.png",
+    problem:
+      "Operational and mobility projects need flexible tools for structured field capture, validation and subsequent analysis.",
+    solution:
+      "Designed a web and mobile platform for capturing, validating and analyzing operational and mobility information through configurable workflows.",
+    impact:
+      "Created a product foundation for standardized field operations, centralized information and future analytical modules.",
+    metrics: [
+      "Structured field-data capture",
+      "Web and mobile product architecture",
+      "Centralized operational information",
+    ],
+    responsibilities: [
+      "Defined product vision and workflows",
+      "Designed mobile and web architecture",
+      "Modeled data-capture and validation modules",
+      "Led functional and technical development",
+    ],
+  },
+  {
+    id: "politycs",
+    title: "POLITYCS",
+    category: "Territorial Intelligence · Data Platform",
+    tech: ["FastAPI", "PostgreSQL", "Next.js", "Public Data", "Analytics"],
+    image: "/images/projects/politycs.png",
+    problem:
+      "Public indicators and territorial information are often fragmented, limiting comparative analysis and local understanding.",
+    solution:
+      "Designed a territorial-intelligence platform to integrate public data, indicators and trends through a modern API, database and web architecture.",
+    impact:
+      "Established a scalable foundation for territorial analysis, comparative indicators and data-driven exploration.",
+    metrics: [
+      "Integrated territorial and public-data concepts",
+      "Designed API and database architecture",
+      "Prepared scalable analytical modules",
+    ],
+    responsibilities: [
+      "Defined the solution architecture",
+      "Modeled PostgreSQL data structures",
+      "Designed FastAPI services",
+      "Planned analytical and visualization experiences",
+    ],
+  },
+  {
+    id: "mobilytics",
+    title: "MOBILYTICS",
+    category: "Consulting · Automation · Data Quality",
+    tech: ["Python", "SQL", "Excel", "Automation", "Process Design"],
+    image: "/images/projects/mobilytics.png",
+    problem:
+      "Small organizations and project teams frequently depend on fragmented files, manual activities and undocumented quality controls.",
+    solution:
+      "Created a consulting initiative focused on automating processes, integrating information sources and implementing practical data-quality controls.",
+    impact:
+      "Provides a professional framework for delivering reusable automation, integration and process-improvement solutions.",
+    metrics: [
+      "Process and data-quality consulting model",
+      "Reusable automation approach",
+      "Business-oriented technical solutions",
+    ],
+    responsibilities: [
+      "Defined service and solution offerings",
+      "Designed automation and integration approaches",
+      "Developed technical prototypes",
+      "Translated operational needs into implementation plans",
     ],
   },
 ]
