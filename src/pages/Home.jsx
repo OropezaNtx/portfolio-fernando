@@ -15,22 +15,22 @@ function Home() {
   return (
     <>
       <Helmet>
-        <title>Fernando Oropeza | Data & Automation Developer</title>
+        <title>Fernando Oropeza | Data, Automation & Software Solutions</title>
         <meta
           name="description"
-          content="Data, automation and software developer focused on building real business solutions with Python, SQL, BigQuery, Power BI, React and cloud tools."
+          content="Systems Engineer experienced in data integration, process automation, analytics and software development with Python, SQL, BigQuery, Power BI and cloud technologies."
         />
       </Helmet>
 
       <Navbar />
       <Hero />
       <Metrics />
-      <About />
       <Projects />
+      <Experience />
       <Skills />
       <TechStack />
+      <About />
       <Process />
-      <Experience />
       <Contact />
       <Footer />
     </>
