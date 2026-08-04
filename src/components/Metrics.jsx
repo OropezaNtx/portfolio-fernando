@@ -2,44 +2,35 @@ import { motion } from "framer-motion"
 
 function Metrics() {
   const metrics = [
-    {
-      value: "3",
-      label: "Industries",
-      description: "Financial services, pharmaceuticals and mobility.",
-    },
-    {
-      value: "8+",
-      label: "Featured solutions",
-      description: "Data engineering, automation, BI, desktop, web and mobile projects.",
-    },
-    {
-      value: "Data + Process + Software",
-      label: "Hybrid profile",
-      description: "Connecting operational needs with technical implementation.",
-    },
+    { value: "3", label: "Industries", description: "Finance, pharmaceuticals and mobility." },
+    { value: "8+", label: "Solutions", description: "Data, automation, BI, web, desktop and mobile." },
+    { value: "End-to-end", label: "Working style", description: "From process analysis to a usable technical solution." },
   ]
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-      className="bg-slate-950 text-white py-16 px-6"
-    >
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-5">
-        {metrics.map((item) => (
-          <article
+    <section className="relative border-y border-white/[0.06] bg-slate-950/70 py-8 text-white">
+      <div className="section-shell grid gap-px overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.08] md:grid-cols-3">
+        {metrics.map((item, index) => (
+          <motion.article
             key={item.label}
-            className="bg-slate-900/70 border border-slate-800 rounded-3xl p-6 text-center hover:border-cyan-400/70 transition"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: index * 0.08 }}
+            viewport={{ once: true }}
+            className="group bg-slate-950/95 p-6 transition hover:bg-slate-900/90 md:p-8"
           >
-            <h3 className="text-3xl font-bold text-cyan-400 mb-2">{item.value}</h3>
-            <p className="text-white font-semibold mb-2">{item.label}</p>
-            <p className="text-slate-400 text-sm">{item.description}</p>
-          </article>
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-2xl font-semibold tracking-tight text-white md:text-3xl">{item.value}</p>
+                <p className="mt-1 text-sm font-medium text-cyan-300">{item.label}</p>
+              </div>
+              <span className="text-xs text-slate-700 transition group-hover:text-cyan-400">0{index + 1}</span>
+            </div>
+            <p className="mt-4 max-w-xs text-sm leading-6 text-slate-500">{item.description}</p>
+          </motion.article>
         ))}
       </div>
-    </motion.section>
+    </section>
   )
 }
 
