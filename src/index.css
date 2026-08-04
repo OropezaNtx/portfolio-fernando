@@ -100,9 +100,93 @@ ul {
   opacity: 0.65;
 }
 
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 70% 12%, rgba(34, 211, 238, 0.06), transparent 24rem),
+    radial-gradient(circle at 18% 68%, rgba(59, 130, 246, 0.05), transparent 28rem);
+}
+
+.starfield-haze {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(2, 6, 23, 0.08), rgba(2, 6, 23, 0.45) 62%, #020617 100%);
+}
+
+.ambient-star {
+  position: absolute;
+  display: block;
+  border-radius: 999px;
+  background: white;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.78);
+  animation: star-drift ease-in-out infinite alternate;
+}
+
+.shooting-star {
+  position: absolute;
+  display: block;
+  width: 120px;
+  height: 1px;
+  border-radius: 999px;
+  opacity: 0;
+  transform: rotate(-28deg);
+  background: linear-gradient(90deg, transparent, rgba(186, 230, 253, 0.28), rgba(255, 255, 255, 0.92));
+  filter: drop-shadow(0 0 6px rgba(125, 211, 252, 0.85));
+}
+
+.shooting-star::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  top: -2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: white;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.95);
+}
+
+.shooting-star-one {
+  left: 78%;
+  top: 14%;
+  animation: shooting-star 18s ease-in-out infinite;
+  animation-delay: 3s;
+}
+
+.shooting-star-two {
+  left: 18%;
+  top: 42%;
+  animation: shooting-star 24s ease-in-out infinite;
+  animation-delay: 11s;
+}
+
+.shooting-star-three {
+  left: 58%;
+  top: 72%;
+  animation: shooting-star 29s ease-in-out infinite;
+  animation-delay: 19s;
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0) rotate(-0.6deg); }
   50% { transform: translateY(-10px) rotate(0.6deg); }
+}
+
+@keyframes star-drift {
+  0% { transform: translate3d(0, 0, 0) scale(0.86); filter: brightness(0.8); }
+  50% { transform: translate3d(4px, 10px, 0) scale(1.12); filter: brightness(1.25); }
+  100% { transform: translate3d(-3px, 22px, 0) scale(0.92); filter: brightness(0.95); }
+}
+
+@keyframes shooting-star {
+  0%, 72% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-28deg) scaleX(0.4); }
+  75% { opacity: 0.95; }
+  82% { opacity: 0; transform: translate3d(-300px, 170px, 0) rotate(-28deg) scaleX(1); }
+  100% { opacity: 0; transform: translate3d(-300px, 170px, 0) rotate(-28deg) scaleX(1); }
 }
 
 .animate-float {
@@ -124,6 +208,14 @@ ul {
     left: -55vw;
     bottom: -15vw;
   }
+
+  .starfield {
+    opacity: 0.72;
+  }
+
+  .shooting-star {
+    width: 90px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -132,5 +224,9 @@ ul {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .shooting-star {
+    display: none;
   }
 }
