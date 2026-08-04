@@ -10,18 +10,16 @@ function Hero() {
 
       <div className="relative z-10 max-w-5xl mx-auto text-center">
         <p className="text-cyan-400 mb-4 tracking-widest uppercase text-sm">
-          Data · Automation · Software
+          Data · Automation · Software Solutions · Cloud
         </p>
 
         <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-          Data & Automation Developer building real-world solutions
+          Transforming business processes into practical data and software solutions
         </h1>
 
         <p className="text-slate-300 max-w-3xl mx-auto text-lg md:text-xl mb-10 leading-relaxed">
-          Systems Engineer with experience at American Express and Merck, building data pipelines,
-          automation tools and software solutions that improve operational efficiency and data quality.
+          Systems Engineer experienced in data integration, process automation and software development across financial services, pharmaceutical operations and mobility projects using Python, SQL, BigQuery, Power BI and cloud technologies.
         </p>
-
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <a
@@ -39,8 +37,9 @@ function Hero() {
             Download CV
           </a>
         </div>
+
         <p className="text-sm text-slate-500 mt-4">
-          Built solutions in American Express · Merck · Mobility & Data projects
+          Experience in American Express · Merck · Urban Data · Independent technology projects
         </p>
       </div>
     </section>
