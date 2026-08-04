@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 import { projects } from "../data/projects"
+import ProjectImageSlider from "./ProjectImageSlider"
 
 const ownedProductIds = ["afora", "politycs", "mobilytics"]
 
@@ -29,6 +30,10 @@ const brandConfig = {
     border: "hover:border-cyan-300/35",
     text: "text-cyan-200",
   },
+}
+
+function getProjectImages(project) {
+  return (project.images || project.gallery || [project.image]).filter(Boolean).slice(0, 3)
 }
 
 function BrandLogo({ project }) {
@@ -88,21 +93,18 @@ function Projects() {
             >
               <div className="relative">
                 <div className="absolute inset-10 rounded-[4rem] bg-cyan-400/12 blur-3xl" />
-                <Link
-                  to={`/project/${project.id}`}
-                  className="group relative block overflow-hidden rounded-[3rem] border border-white/10 bg-white/[0.035] p-3 shadow-[0_35px_110px_rgba(0,0,0,0.35)] backdrop-blur-lg"
-                >
-                  <div className="aspect-[5/4] overflow-hidden rounded-[2.35rem] bg-gradient-to-br from-slate-800 to-slate-950">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.035]"
-                      onError={(event) => {
-                        event.currentTarget.style.display = "none"
-                      }}
-                    />
-                  </div>
-                </Link>
+                <div className="relative overflow-hidden rounded-[3rem] border border-white/10 bg-white/[0.035] p-3 shadow-[0_35px_110px_rgba(0,0,0,0.35)] backdrop-blur-lg">
+                  <ProjectImageSlider
+                    title={project.title}
+                    images={getProjectImages(project)}
+                    className="aspect-[5/4] rounded-[2.35rem] border-0"
+                  />
+                  <Link
+                    to={`/project/${project.id}`}
+                    aria-label={`Explore ${project.title}`}
+                    className="absolute inset-3 z-10 rounded-[2.35rem] focus:outline-none focus:ring-2 focus:ring-cyan-300"
+                  />
+                </div>
               </div>
 
               <div className="max-w-xl">
