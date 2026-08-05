@@ -1,9 +1,9 @@
 import { useMemo } from "react"
 
 const STAR_COUNTS = {
-  static: 180,
-  floating: 90,
-  shooting: 90,
+  static: 240,
+  floating: 100,
+  shooting: 60,
 }
 
 function seededRandom(seed) {
@@ -72,8 +72,8 @@ function buildShootingStars() {
     const top = -8 + seededRandom(seed++) * 94
     const left = 32 + seededRandom(seed++) * 78
     const length = 75 + seededRandom(seed++) * 120
-    const duration = 3.5 + seededRandom(seed++) * 4.8
-    const delay = seededRandom(seed++) * -8
+    const duration = 6.5 + seededRandom(seed++) * 5.8
+    const delay = seededRandom(seed++) * -12
     const travelX = 260 + seededRandom(seed++) * 420
     const travelY = 130 + seededRandom(seed++) * 260
     const rotate = -18 - seededRandom(seed++) * 18
@@ -132,9 +132,9 @@ function Starfield() {
             opacity: 0;
             transform: translate3d(0, 0, 0) scaleX(0.2);
           }
-          4% { opacity: var(--shoot-opacity); }
-          14% { opacity: calc(var(--shoot-opacity) * 0.85); }
-          22%, 100% {
+          6% { opacity: var(--shoot-opacity); }
+          26% { opacity: calc(var(--shoot-opacity) * 0.88); }
+          38%, 100% {
             opacity: 0;
             transform: translate3d(calc(var(--shoot-x) * -1), var(--shoot-y), 0) scaleX(1);
           }
