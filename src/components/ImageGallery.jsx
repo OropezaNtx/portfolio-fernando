@@ -46,10 +46,13 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
   const [isVisible, setIsVisible] = useState(true)
   const [isDocumentVisible, setIsDocumentVisible] = useState(true)
   const [isInteractionPaused, setIsInteractionPaused] = useState(false)
+  const [loadedImages, setLoadedImages] = useState(() => new Set())
+  const [isChanging, setIsChanging] = useState(false)
 
   useEffect(() => {
     setAvailableImages(normalizedImages)
     setIndex(0)
+    setLoadedImages(new Set())
   }, [normalizedImages.join("|")])
 
   useEffect(() => {
@@ -58,7 +61,7 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
 
     const observer = new IntersectionObserver(
       ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.25 },
+      { threshold: 0.22 },
     )
 
     observer.observe(element)
@@ -98,6 +101,7 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
 
     const interval = window.setInterval(() => {
       setDirection(1)
+      setIsChanging(true)
       setIndex((current) => (current + 1) % availableImages.length)
     }, AUTOPLAY_DELAY)
 
@@ -128,9 +132,19 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
     })
   }
 
+  const markImageLoaded = (src) => {
+    setLoadedImages((current) => {
+      const next = new Set(current)
+      next.add(src)
+      return next
+    })
+    setIsChanging(false)
+  }
+
   const goToImage = (nextIndex, nextDirection = 1, manual = true) => {
     if (!availableImages.length || nextIndex === index) return
     setDirection(nextDirection)
+    setIsChanging(true)
     setIndex(nextIndex)
     if (manual) pauseAfterInteraction()
   }
@@ -189,14 +203,22 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
     )
   }
 
+  const currentImage = availableImages[index]
+  const currentImageLoaded = loadedImages.has(currentImage)
+
   return (
-    <div
+    <motion.div
       ref={containerRef}
       tabIndex={0}
       role="region"
       aria-label={`${title} image gallery`}
       aria-roledescription="carousel"
-      className={`group relative aspect-video w-full touch-pan-y overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/80 ${className}`}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 24, scale: 0.985 }}
+      whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={prefersReducedMotion ? {} : { scale: 1.008, y: -2 }}
+      className={`group relative aspect-video w-full touch-pan-y overflow-hidden rounded-2xl border border-white/10 bg-slate-950 shadow-[0_30px_90px_rgba(0,0,0,0.34)] outline-none transition-shadow duration-700 hover:shadow-[0_42px_120px_rgba(0,0,0,0.46)] focus-visible:ring-2 focus-visible:ring-cyan-300/80 ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onFocusCapture={() => setIsFocused(true)}
@@ -210,32 +232,68 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
         pointerStartRef.current = null
       }}
     >
+      <AnimatePresence>
+        {(!currentImageLoaded || isChanging) && (
+          <motion.div
+            key={`skeleton-${currentImage}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-10 overflow-hidden bg-slate-900"
+          >
+            <motion.div
+              className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent"
+              animate={{ x: ["-120%", "240%"] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-cyan-300/[0.04]" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <AnimatePresence initial={false} custom={direction} mode="popLayout">
         <motion.img
-          key={availableImages[index]}
-          src={availableImages[index]}
+          key={currentImage}
+          src={currentImage}
           alt={`${title} image ${index + 1} of ${availableImages.length}`}
           loading="lazy"
           decoding="async"
           draggable="false"
           className="absolute inset-0 h-full w-full select-none object-cover"
           custom={direction}
-          initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: direction * 36, scale: 1.015 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: direction * -24, scale: 0.99 }}
-          transition={{ duration: prefersReducedMotion ? 0.2 : 0.7, ease: [0.22, 1, 0.36, 1] }}
-          onError={() => removeUnavailableImage(availableImages[index])}
+          initial={
+            prefersReducedMotion
+              ? { opacity: 0 }
+              : { opacity: 0, x: direction * 28, scale: 1.035, filter: "blur(16px)" }
+          }
+          animate={{ opacity: 1, x: 0, scale: isHovered ? 1.028 : 1, filter: "blur(0px)" }}
+          exit={
+            prefersReducedMotion
+              ? { opacity: 0 }
+              : { opacity: 0, x: direction * -18, scale: 0.992, filter: "blur(10px)" }
+          }
+          transition={{ duration: prefersReducedMotion ? 0.2 : 0.9, ease: [0.22, 1, 0.36, 1] }}
+          onLoad={() => markImageLoaded(currentImage)}
+          onError={() => removeUnavailableImage(currentImage)}
         />
       </AnimatePresence>
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/55 via-transparent to-slate-950/10" />
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-slate-950/60 via-transparent to-white/[0.04]"
+        animate={{ opacity: isChanging ? 0.9 : 0.55 }}
+        transition={{ duration: 0.45 }}
+      />
+
+      <div className="pointer-events-none absolute inset-x-[8%] bottom-[-10%] z-0 h-1/3 rounded-full bg-cyan-300/10 blur-3xl transition duration-700 group-hover:bg-cyan-300/15" />
+      <div className="pointer-events-none absolute inset-0 z-20 rounded-[inherit] ring-1 ring-inset ring-white/[0.06]" />
 
       {availableImages.length > 1 && (
         <>
           <button
             type="button"
             onClick={previous}
-            className="absolute left-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/70 text-2xl text-white opacity-0 shadow-lg backdrop-blur-md transition hover:scale-105 hover:bg-slate-900 group-hover:opacity-100 focus:opacity-100"
+            className="absolute left-4 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/60 text-2xl text-white opacity-0 shadow-lg backdrop-blur-xl transition duration-300 hover:scale-105 hover:bg-slate-900/90 group-hover:opacity-100 focus:opacity-100"
             aria-label="Previous image"
           >
             ‹
@@ -243,13 +301,13 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
           <button
             type="button"
             onClick={next}
-            className="absolute right-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/70 text-2xl text-white opacity-0 shadow-lg backdrop-blur-md transition hover:scale-105 hover:bg-slate-900 group-hover:opacity-100 focus:opacity-100"
+            className="absolute right-4 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/60 text-2xl text-white opacity-0 shadow-lg backdrop-blur-xl transition duration-300 hover:scale-105 hover:bg-slate-900/90 group-hover:opacity-100 focus:opacity-100"
             aria-label="Next image"
           >
             ›
           </button>
 
-          <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1.5 rounded-full border border-white/10 bg-slate-950/65 p-1.5 shadow-lg backdrop-blur-md">
+          <div className="absolute bottom-4 left-1/2 z-30 flex -translate-x-1/2 items-center gap-1.5 rounded-full border border-white/10 bg-slate-950/55 p-1.5 shadow-xl backdrop-blur-xl">
             {availableImages.map((image, imageIndex) => {
               const active = imageIndex === index
               return (
@@ -257,9 +315,9 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
                   key={image}
                   type="button"
                   onClick={() => goToImage(imageIndex, imageIndex > index ? 1 : -1)}
-                  className={`relative flex h-7 items-center justify-center overflow-hidden rounded-full text-[10px] font-semibold transition-all duration-300 ${
+                  className={`relative flex h-7 items-center justify-center overflow-hidden rounded-full text-[10px] font-semibold transition-all duration-500 ${
                     active
-                      ? "w-12 bg-cyan-300 text-slate-950"
+                      ? "w-12 bg-white text-slate-950 shadow-[0_0_24px_rgba(255,255,255,0.18)]"
                       : "w-7 bg-white/10 text-white/70 hover:bg-white/20 hover:text-white"
                   }`}
                   aria-label={`Go to image ${imageIndex + 1}`}
@@ -269,7 +327,7 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
                   {active && !autoplayPaused && (
                     <motion.span
                       key={`${index}-${isInteractionPaused}`}
-                      className="absolute bottom-0 left-0 h-0.5 bg-slate-950/55"
+                      className="absolute bottom-0 left-0 h-0.5 bg-cyan-500"
                       initial={{ width: 0 }}
                       animate={{ width: "100%" }}
                       transition={{ duration: AUTOPLAY_DELAY / 1000, ease: "linear" }}
@@ -280,7 +338,7 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
             })}
           </div>
 
-          <div className="absolute right-4 top-4 z-20 rounded-full border border-white/10 bg-slate-950/65 px-3 py-1.5 text-xs tabular-nums text-white/75 opacity-0 backdrop-blur-md transition group-hover:opacity-100 focus-within:opacity-100">
+          <div className="absolute right-4 top-4 z-30 rounded-full border border-white/10 bg-slate-950/55 px-3 py-1.5 text-xs tabular-nums text-white/75 opacity-0 shadow-lg backdrop-blur-xl transition duration-300 group-hover:opacity-100 focus-within:opacity-100">
             {index + 1} / {availableImages.length}
           </div>
 
@@ -289,7 +347,7 @@ function ImageGallery({ images = [], title = "Gallery", className = "" }) {
           </p>
         </>
       )}
-    </div>
+    </motion.div>
   )
 }
 
