@@ -1,12 +1,15 @@
 import { Helmet } from "react-helmet-async"
 import Navbar from "../components/Navbar"
+import Starfield from "../components/Starfield"
 import Hero from "../components/Hero"
 import Metrics from "../components/Metrics"
+import WhatIBuild from "../components/WhatIBuild"
 import About from "../components/About"
-import Projects from "../components/Projects"
+import Process from "../components/Process"
+import EngineeringPrinciples from "../components/EngineeringPrinciples"
 import Skills from "../components/Skills"
 import TechStack from "../components/TechStack"
-import Process from "../components/Process"
+import Projects from "../components/Projects"
 import Experience from "../components/Experience"
 import Contact from "../components/Contact"
 import Footer from "../components/Footer"
@@ -15,24 +18,29 @@ function Home() {
   return (
     <>
       <Helmet>
-        <title>Fernando Oropeza | Data & Automation Developer</title>
+        <title>Fernando Oropeza | Systems Solutions Engineer</title>
         <meta
           name="description"
-          content="Data, automation and software developer focused on building real business solutions with Python, SQL, BigQuery, Power BI, React and cloud tools."
+          content="Systems Solutions Engineer who transforms real business processes into desktop, web, Android, data, business intelligence and cloud solutions."
         />
       </Helmet>
 
-      <Navbar />
-      <Hero />
-      <Metrics />
-      <About />
-      <Projects />
-      <Skills />
-      <TechStack />
-      <Process />
-      <Experience />
-      <Contact />
-      <Footer />
+      <Starfield />
+      <div className="relative z-10">
+        <Navbar />
+        <Hero />
+        <Metrics />
+        <WhatIBuild />
+        <About />
+        <Process />
+        <EngineeringPrinciples />
+        <Skills />
+        <TechStack />
+        <Projects />
+        <Experience />
+        <Contact />
+        <Footer />
+      </div>
     </>
   )
 }
