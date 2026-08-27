@@ -70,6 +70,99 @@ function StatusBadge({ project }) {
   )
 }
 
+function MiniTransitScreen() {
+  return (
+    <div className="afora-phone">
+      <div className="afora-phone-notch" />
+      <div className="afora-phone-screen">
+        <div className="afora-phone-topline">
+          <span>ATRÁS</span>
+          <strong>RUTA 2 · BUENA VISTA</strong>
+          <span>MAPA</span>
+        </div>
+        <div className="afora-capture-card">
+          <div className="afora-capture-head">
+            <span className="afora-live-dot" />
+            <div>
+              <strong>CAPTURA ACTIVA</strong>
+              <small>00:06</small>
+            </div>
+            <b>×</b>
+          </div>
+          <div className="afora-stats">
+            <div><strong>4</strong><span>SUBEN</span></div>
+            <div className="down"><strong>2</strong><span>BAJAN</span></div>
+            <div><strong>12</strong><span>A BORDO</span></div>
+          </div>
+          <div className="afora-total-row"><span>HOMBRES 8</span><span>MUJERES 4</span></div>
+          <div className="afora-gender-block">
+            <div className="afora-block-title"><strong>↑ SUBEN</strong><span>TOTAL: 4</span></div>
+            <div className="afora-gender-grid">
+              <div><small>HOMBRES</small><strong>2</strong><span><i>−</i><i>+</i></span></div>
+              <div><small>MUJERES</small><strong>2</strong><span><i>−</i><i>+</i></span></div>
+            </div>
+          </div>
+          <div className="afora-gender-block down-block">
+            <div className="afora-block-title"><strong>↓ BAJAN</strong><span>TOTAL: 2</span></div>
+            <div className="afora-gender-grid">
+              <div><small>HOMBRES</small><strong>1</strong><span><i>−</i><i>+</i></span></div>
+              <div><small>MUJERES</small><strong>1</strong><span><i>−</i><i>+</i></span></div>
+            </div>
+          </div>
+          <div className="afora-delay-title">DEMORAS</div>
+          <div className="afora-delay-grid">{["S", "C", "TM", "CND", "VI", "VD", "PP", "O"].map((item, index) => <span key={item} className={index < 4 ? "active" : ""}>{item}</span>)}</div>
+          <div className="afora-notes"><span>NOTAS</span><i /></div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const capabilityNodes = [
+  { label: "GPS en tiempo real", detail: "Seguimiento y ubicación precisa", icon: "⌖", side: "left", pos: "top" },
+  { label: "Rutas y paradas", detail: "Recorridos, dirección y contexto", icon: "●", side: "left", pos: "upper" },
+  { label: "Transporte y movilidad", detail: "Operación de flotas y campo", icon: "▣", side: "left", pos: "lower" },
+  { label: "Persistencia local", detail: "Datos disponibles sin conexión", icon: "◫", side: "left", pos: "bottom" },
+  { label: "Conectividad", detail: "Sincronización y recuperación", icon: "⌁", side: "right", pos: "top" },
+  { label: "Movilidad inteligente", detail: "Visibilidad integral de operación", icon: "▰", side: "right", pos: "upper" },
+  { label: "Inteligencia operativa", detail: "Métricas, alertas y control", icon: "▥", side: "right", pos: "lower" },
+  { label: "Eventos + contexto", detail: "Evidencia y situaciones de campo", icon: "⌇", side: "right", pos: "bottom" },
+]
+
+function AforaOperationsVisual() {
+  return (
+    <div className="afora-ops-visual" aria-label="AFORA field operations capabilities">
+      <div className="afora-orbit orbit-one" />
+      <div className="afora-orbit orbit-two" />
+      <div className="afora-orbit orbit-three" />
+      <div className="afora-map-grid" />
+      <svg className="afora-route-lines" viewBox="0 0 760 620" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M38 302 C132 242 216 268 300 220 C390 166 455 180 530 125 C608 70 680 100 732 58" />
+        <path d="M48 456 C150 420 220 448 314 392 C412 334 498 362 572 314 C646 268 690 246 732 218" />
+        <path d="M110 118 C210 168 248 210 336 282 C430 360 526 392 696 430" />
+      </svg>
+      <div className="afora-moving-point point-one" />
+      <div className="afora-moving-point point-two" />
+      <div className="afora-moving-point point-three" />
+      <MiniTransitScreen />
+      {capabilityNodes.map((node, index) => (
+        <motion.div
+          key={node.label}
+          className={`afora-capability-node ${node.side} ${node.pos}`}
+          initial={{ opacity: 0, x: node.side === "left" ? -18 : 18 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.55, delay: 0.08 * index }}
+          viewport={{ once: true, amount: 0.4 }}
+        >
+          <span className="afora-node-icon">{node.icon}</span>
+          <div><strong>{node.label}</strong><small>{node.detail}</small></div>
+        </motion.div>
+      ))}
+      <div className="afora-explore-hint"><span>↕</span> Interactúa para explorar</div>
+    </div>
+  )
+}
+
 function Projects() {
   const featuredProjects = projects.slice(0, 3)
   const ownedProducts = ownedProductIds
@@ -106,14 +199,8 @@ function Projects() {
             className="relative overflow-hidden rounded-[3rem] border border-orange-300/15 bg-slate-950/55 p-4 shadow-[0_40px_120px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-6 lg:p-8"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-orange-400/14 via-rose-400/[0.04] to-transparent" />
-            <div className="relative grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-14">
-              <div className="relative overflow-hidden rounded-[2.35rem] border border-white/10 bg-white/[0.025] p-2">
-                <ProjectImageSlider
-                  title={flagshipProduct.title}
-                  images={getProjectImages(flagshipProduct)}
-                  className="aspect-[5/4] rounded-[1.9rem] border-0"
-                />
-              </div>
+            <div className="relative grid gap-10 lg:grid-cols-[1.16fr_0.84fr] lg:items-center lg:gap-12">
+              <AforaOperationsVisual />
 
               <div className="px-1 py-3 sm:px-3 lg:py-8">
                 <div className="flex flex-wrap items-center gap-3">
@@ -128,12 +215,13 @@ function Projects() {
                   </div>
                 </div>
                 <p className="mt-7 max-w-xl text-lg leading-8 text-slate-300">
-                  AFORA connects field capture, GPS tracking, validation, evidence and supervision in one platform, giving teams a continuous flow from work in the field to operational control and analysis.
+                  AFORA connects field capture, GPS tracking, routes, validation, evidence and supervision in one platform, giving teams a continuous flow from work in the field to operational control, mobility intelligence and analysis.
                 </p>
                 <div className="mt-7 flex flex-wrap gap-2">
                   {flagshipProduct.tech.slice(0, 5).map((tech) => (
                     <span key={tech} className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-slate-500">{tech}</span>
                   ))}
+                  <span className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-slate-500">Maps</span>
                 </div>
                 <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                   <Link
