@@ -42,7 +42,7 @@ function BrandLogo({ project }) {
 
   return (
     <div className={`relative flex shrink-0 items-center justify-center overflow-hidden border border-white/10 bg-slate-950/75 shadow-[0_15px_45px_rgba(0,0,0,0.24)] ${isAfora ? "h-[5.5rem] w-[5.5rem] rounded-[1.7rem]" : "h-16 w-16 rounded-2xl"}`}>
-      <span className={`absolute text-xl font-black ${brand.text}`}>{brand.mark}</span>
+      {!isAfora && <span className={`absolute text-xl font-black ${brand.text}`}>{brand.mark}</span>}
       <img
         src={brand.logo}
         alt={`${project.title} logo`}
