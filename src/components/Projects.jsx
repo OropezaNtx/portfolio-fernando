@@ -9,7 +9,7 @@ const brandConfig = {
   afora: {
     logo: "/images/brands/afora.png",
     mark: "A",
-    eyebrow: "Android + Web product",
+    eyebrow: "Field operations platform",
     accent: "from-orange-400/25 via-rose-400/10 to-transparent",
     border: "hover:border-orange-300/35",
     text: "text-orange-200",
@@ -17,7 +17,7 @@ const brandConfig = {
   politycs: {
     logo: "/images/brands/politycs.png",
     mark: "P",
-    eyebrow: "Web data platform",
+    eyebrow: "Territorial intelligence",
     accent: "from-violet-500/25 via-fuchsia-400/10 to-transparent",
     border: "hover:border-violet-300/35",
     text: "text-violet-200",
@@ -25,7 +25,7 @@ const brandConfig = {
   mobilytics: {
     logo: "/images/brands/mobilytics.png",
     mark: "M",
-    eyebrow: "Solutions business",
+    eyebrow: "Data & automation solutions",
     accent: "from-cyan-400/25 via-blue-400/10 to-transparent",
     border: "hover:border-cyan-300/35",
     text: "text-cyan-200",
@@ -54,11 +54,29 @@ function BrandLogo({ project }) {
   )
 }
 
+function StatusBadge({ project }) {
+  if (!project.status) return null
+  const isLive = project.status.toLowerCase().includes("live")
+
+  return (
+    <span className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] ${
+      isLive
+        ? "border-emerald-300/25 bg-emerald-300/[0.06] text-emerald-200"
+        : "border-white/10 bg-white/[0.035] text-slate-400"
+    }`}>
+      <span className={`h-1.5 w-1.5 rounded-full ${isLive ? "bg-emerald-300 shadow-[0_0_12px_rgba(110,231,183,0.75)]" : "bg-slate-500"}`} />
+      {project.status}
+    </span>
+  )
+}
+
 function Projects() {
   const featuredProjects = projects.slice(0, 3)
   const ownedProducts = ownedProductIds
     .map((id) => projects.find((project) => project.id === id))
     .filter(Boolean)
+  const flagshipProduct = ownedProducts.find((project) => project.id === "afora")
+  const supportingProducts = ownedProducts.filter((project) => project.id !== "afora")
   const additionalProjects = projects.filter(
     (project, index) => index >= 3 && !ownedProductIds.includes(project.id),
   )
@@ -69,128 +87,163 @@ function Projects() {
       <div className="absolute left-[-15%] top-[18%] h-[520px] w-[520px] rounded-full bg-cyan-500/5 blur-3xl" />
 
       <div className="relative mx-auto max-w-[1280px]">
-        <div className="mb-20 max-w-4xl lg:mb-28">
-          <p className="eyebrow mb-5">Featured solutions</p>
+        <div className="mb-20 max-w-4xl lg:mb-24">
+          <p className="eyebrow mb-5">Products I&apos;ve built</p>
           <h2 className="text-5xl font-semibold tracking-[-0.05em] sm:text-6xl lg:text-7xl">
-            Systems designed around real operations.
+            Independent products shaped by real operational problems.
           </h2>
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-400">
-            Each case study explains the users, operational problem, architecture, transformation and result—not only the technologies used to build it.
+          <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-400">
+            I use the same engineering approach from my professional work to design products of my own—from field operations and territorial intelligence to practical data and automation solutions.
           </p>
         </div>
 
-        <div className="space-y-28 lg:space-y-40">
-          {featuredProjects.map((project, index) => (
-            <motion.article
-              key={project.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              viewport={{ once: true, amount: 0.15 }}
-              className={`grid items-center gap-12 lg:grid-cols-2 lg:gap-20 ${
-                index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
-              }`}
-            >
-              <div className="relative">
-                <div className="absolute inset-10 rounded-[4rem] bg-cyan-400/12 blur-3xl" />
-                <div className="relative overflow-hidden rounded-[3rem] border border-white/10 bg-white/[0.035] p-3 shadow-[0_35px_110px_rgba(0,0,0,0.35)] backdrop-blur-lg">
-                  <ProjectImageSlider
-                    title={project.title}
-                    images={getProjectImages(project)}
-                    className="aspect-[5/4] rounded-[2.35rem] border-0"
-                  />
-                  <Link
-                    to={`/project/${project.id}`}
-                    aria-label={`Explore ${project.title}`}
-                    className="absolute inset-3 z-10 rounded-[2.35rem] focus:outline-none focus:ring-2 focus:ring-cyan-300"
-                  />
-                </div>
+        {flagshipProduct && (
+          <motion.article
+            initial={{ opacity: 0, y: 36 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true, amount: 0.15 }}
+            className="relative overflow-hidden rounded-[3rem] border border-orange-300/15 bg-slate-950/55 p-4 shadow-[0_40px_120px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-6 lg:p-8"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-400/14 via-rose-400/[0.04] to-transparent" />
+            <div className="relative grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-14">
+              <div className="relative overflow-hidden rounded-[2.35rem] border border-white/10 bg-white/[0.025] p-2">
+                <ProjectImageSlider
+                  title={flagshipProduct.title}
+                  images={getProjectImages(flagshipProduct)}
+                  className="aspect-[5/4] rounded-[1.9rem] border-0"
+                />
               </div>
 
-              <div className="max-w-xl">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200">
-                  {project.platform}
-                </p>
-                <h3 className="mt-5 text-4xl font-semibold tracking-[-0.045em] sm:text-6xl">
-                  {project.title}
-                </h3>
-                <p className="mt-5 text-sm uppercase tracking-[0.15em] text-slate-500">
-                  For {project.audience}
-                </p>
-                <p className="mt-7 text-lg leading-8 text-slate-300">{project.impact}</p>
-                <div className="mt-8 flex flex-wrap gap-2">
-                  {project.tech.slice(0, 5).map((tech) => (
+              <div className="px-1 py-3 sm:px-3 lg:py-8">
+                <div className="flex flex-wrap items-center gap-3">
+                  <StatusBadge project={flagshipProduct} />
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-200">Own product</span>
+                </div>
+                <div className="mt-7 flex items-center gap-4">
+                  <BrandLogo project={flagshipProduct} />
+                  <div>
+                    <h3 className="text-5xl font-semibold tracking-[-0.05em] sm:text-6xl">{flagshipProduct.title}</h3>
+                    <p className="mt-2 text-xs uppercase tracking-[0.16em] text-slate-500">{flagshipProduct.platform}</p>
+                  </div>
+                </div>
+                <p className="mt-7 max-w-xl text-lg leading-8 text-slate-300">{flagshipProduct.impact}</p>
+                <div className="mt-7 flex flex-wrap gap-2">
+                  {flagshipProduct.tech.slice(0, 5).map((tech) => (
                     <span key={tech} className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-slate-500">{tech}</span>
                   ))}
                 </div>
-                <Link
-                  to={`/project/${project.id}`}
-                  className="mt-10 inline-flex items-center gap-3 border-b border-cyan-200/40 pb-1 text-sm font-semibold text-cyan-100 transition hover:border-cyan-100"
-                >
-                  Explore solution <span>↗</span>
-                </Link>
+                <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                  <Link
+                    to={`/project/${flagshipProduct.id}`}
+                    className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-semibold text-slate-950 transition hover:scale-[1.02] hover:bg-orange-100"
+                  >
+                    Explore case study
+                  </Link>
+                  {flagshipProduct.website && (
+                    <a
+                      href={flagshipProduct.website}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center justify-center rounded-full border border-orange-200/25 px-6 py-3 font-semibold text-orange-100 transition hover:border-orange-100/60 hover:bg-orange-300/[0.05]"
+                    >
+                      Visit AFORA ↗
+                    </a>
+                  )}
+                </div>
               </div>
-            </motion.article>
-          ))}
+            </div>
+          </motion.article>
+        )}
+
+        <div className="mt-6 grid gap-5 lg:grid-cols-2">
+          {supportingProducts.map((project, index) => {
+            const brand = brandConfig[project.id]
+            return (
+              <motion.article
+                key={project.id}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: index * 0.08 }}
+                viewport={{ once: true, amount: 0.2 }}
+                whileHover={{ y: -5 }}
+                className={`group relative overflow-hidden rounded-[2.25rem] border border-white/10 bg-slate-950/45 p-7 backdrop-blur-xl transition duration-300 ${brand.border}`}
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${brand.accent} opacity-70 transition duration-500 group-hover:opacity-100`} />
+                <div className="relative">
+                  <div className="flex flex-wrap items-center justify-between gap-5">
+                    <BrandLogo project={project} />
+                    <StatusBadge project={project} />
+                  </div>
+                  <p className={`mt-8 text-xs font-semibold uppercase tracking-[0.18em] ${brand.text}`}>{brand.eyebrow}</p>
+                  <h4 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{project.title}</h4>
+                  <p className="mt-5 min-h-24 text-sm leading-7 text-slate-400">{project.impact}</p>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {project.tech.slice(0, 4).map((tech) => (
+                      <span key={tech} className="rounded-full border border-white/10 px-3 py-1 text-[11px] text-slate-500">{tech}</span>
+                    ))}
+                  </div>
+                  <div className="mt-8 flex flex-wrap items-center gap-5">
+                    <Link to={`/project/${project.id}`} className={`inline-flex items-center gap-2 text-sm font-semibold ${brand.text}`}>
+                      Explore product <span>→</span>
+                    </Link>
+                    {project.website && (
+                      <a href={project.website} target="_blank" rel="noreferrer" className="text-sm font-semibold text-slate-300 hover:text-white">
+                        Visit website ↗
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.article>
+            )
+          })}
         </div>
 
-        <div className="mt-32 border-t border-white/10 pt-16 lg:mt-44 lg:pt-20">
-          <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-            <div>
-              <p className="eyebrow mb-4">Own products & solutions business</p>
-              <h3 className="text-4xl font-semibold tracking-[-0.045em] sm:text-5xl">
-                Product ideas built with ownership and a clear operational purpose.
-              </h3>
-            </div>
-            <p className="max-w-2xl text-base leading-8 text-slate-400 lg:justify-self-end">
-              AFORA, POLITYCS and MOBILYTICS represent the entrepreneurial side of my profile: product definition, platform architecture, implementation planning and commercial delivery.
+        <div className="mt-28 border-t border-white/10 pt-16 lg:mt-36 lg:pt-20">
+          <div className="mb-20 max-w-4xl lg:mb-28">
+            <p className="eyebrow mb-5">Professional work</p>
+            <h2 className="text-5xl font-semibold tracking-[-0.05em] sm:text-6xl lg:text-7xl">
+              Systems built inside real business operations.
+            </h2>
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-400">
+              These case studies show how I translate commercial, quality and field-data processes into practical software, automation and analytical systems.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
-            {ownedProducts.map((project, index) => {
-              const brand = brandConfig[project.id]
-              return (
-                <motion.article
-                  key={project.id}
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.55, delay: index * 0.08 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  whileHover={{ y: -6 }}
-                  className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/45 p-6 backdrop-blur-xl transition duration-300 ${brand.border}`}
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${brand.accent} opacity-70 transition duration-500 group-hover:opacity-100`} />
-                  <div className="relative">
-                    <div className="flex items-center justify-between gap-5">
-                      <BrandLogo project={project} />
-                      <span className={`text-xs font-semibold uppercase tracking-[0.18em] ${brand.text}`}>
-                        {brand.eyebrow}
-                      </span>
-                    </div>
-
-                    <h4 className="mt-8 text-3xl font-semibold tracking-[-0.04em]">{project.title}</h4>
-                    <p className="mt-3 text-xs uppercase tracking-[0.14em] text-slate-600">{project.platform}</p>
-                    <p className="mt-5 min-h-24 text-sm leading-7 text-slate-400">{project.impact}</p>
-
-                    <div className="mt-6 flex flex-wrap gap-2">
-                      {project.tech.slice(0, 4).map((tech) => (
-                        <span key={tech} className="rounded-full border border-white/10 px-3 py-1 text-[11px] text-slate-500">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    <Link
-                      to={`/project/${project.id}`}
-                      className={`mt-8 inline-flex items-center gap-2 text-sm font-semibold ${brand.text}`}
-                    >
-                      Explore product <span className="transition group-hover:translate-x-1">→</span>
-                    </Link>
+          <div className="space-y-28 lg:space-y-40">
+            {featuredProjects.map((project, index) => (
+              <motion.article
+                key={project.id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7 }}
+                viewport={{ once: true, amount: 0.15 }}
+                className={`grid items-center gap-12 lg:grid-cols-2 lg:gap-20 ${index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""}`}
+              >
+                <div className="relative">
+                  <div className="absolute inset-10 rounded-[4rem] bg-cyan-400/12 blur-3xl" />
+                  <div className="relative overflow-hidden rounded-[3rem] border border-white/10 bg-white/[0.035] p-3 shadow-[0_35px_110px_rgba(0,0,0,0.35)] backdrop-blur-lg">
+                    <ProjectImageSlider title={project.title} images={getProjectImages(project)} className="aspect-[5/4] rounded-[2.35rem] border-0" />
+                    <Link to={`/project/${project.id}`} aria-label={`Explore ${project.title}`} className="absolute inset-3 z-10 rounded-[2.35rem] focus:outline-none focus:ring-2 focus:ring-cyan-300" />
                   </div>
-                </motion.article>
-              )
-            })}
+                </div>
+
+                <div className="max-w-xl">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200">{project.platform}</p>
+                  <h3 className="mt-5 text-4xl font-semibold tracking-[-0.045em] sm:text-6xl">{project.title}</h3>
+                  <p className="mt-5 text-sm uppercase tracking-[0.15em] text-slate-500">For {project.audience}</p>
+                  <p className="mt-7 text-lg leading-8 text-slate-300">{project.impact}</p>
+                  <div className="mt-8 flex flex-wrap gap-2">
+                    {project.tech.slice(0, 5).map((tech) => (
+                      <span key={tech} className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-slate-500">{tech}</span>
+                    ))}
+                  </div>
+                  <Link to={`/project/${project.id}`} className="mt-10 inline-flex items-center gap-3 border-b border-cyan-200/40 pb-1 text-sm font-semibold text-cyan-100 transition hover:border-cyan-100">
+                    Explore solution <span>↗</span>
+                  </Link>
+                </div>
+              </motion.article>
+            ))}
           </div>
         </div>
 
@@ -199,27 +252,17 @@ function Projects() {
             <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
               <div>
                 <p className="eyebrow mb-4">Additional case studies</p>
-                <h3 className="text-3xl font-semibold tracking-[-0.035em] sm:text-4xl">
-                  More systems, quality and field-data solutions
-                </h3>
+                <h3 className="text-3xl font-semibold tracking-[-0.035em] sm:text-4xl">More systems, quality and field-data solutions</h3>
               </div>
-              <p className="max-w-md text-sm leading-6 text-slate-500">
-                Corporate case studies are presented without confidential information.
-              </p>
+              <p className="max-w-md text-sm leading-6 text-slate-500">Corporate case studies are presented without confidential information.</p>
             </div>
 
             <div className="divide-y divide-white/10 border-y border-white/10">
               {additionalProjects.map((project) => (
-                <Link
-                  key={project.id}
-                  to={`/project/${project.id}`}
-                  className="group grid gap-4 py-8 transition hover:pl-3 sm:grid-cols-[1fr_auto] sm:items-center"
-                >
+                <Link key={project.id} to={`/project/${project.id}`} className="group grid gap-4 py-8 transition hover:pl-3 sm:grid-cols-[1fr_auto] sm:items-center">
                   <div>
                     <p className="text-xs uppercase tracking-[0.16em] text-slate-500">{project.platform}</p>
-                    <h4 className="mt-2 text-2xl font-medium tracking-[-0.025em] text-slate-100 transition group-hover:text-cyan-100">
-                      {project.title}
-                    </h4>
+                    <h4 className="mt-2 text-2xl font-medium tracking-[-0.025em] text-slate-100 transition group-hover:text-cyan-100">{project.title}</h4>
                   </div>
                   <span className="text-2xl text-slate-600 transition group-hover:translate-x-1 group-hover:text-cyan-200">→</span>
                 </Link>
