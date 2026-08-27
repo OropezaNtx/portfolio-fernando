@@ -127,7 +127,9 @@ function Projects() {
                     <p className="mt-2 text-xs uppercase tracking-[0.16em] text-slate-500">{flagshipProduct.platform}</p>
                   </div>
                 </div>
-                <p className="mt-7 max-w-xl text-lg leading-8 text-slate-300">{flagshipProduct.impact}</p>
+                <p className="mt-7 max-w-xl text-lg leading-8 text-slate-300">
+                  AFORA connects field capture, GPS tracking, validation, evidence and supervision in one platform, giving teams a continuous flow from work in the field to operational control and analysis.
+                </p>
                 <div className="mt-7 flex flex-wrap gap-2">
                   {flagshipProduct.tech.slice(0, 5).map((tech) => (
                     <span key={tech} className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-slate-500">{tech}</span>
