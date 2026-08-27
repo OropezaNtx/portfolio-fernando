@@ -7,7 +7,7 @@ const ownedProductIds = ["afora", "politycs", "mobilytics"]
 
 const brandConfig = {
   afora: {
-    logo: "/images/brands/afora.png",
+    logo: "/images/brands/afora-mark.svg",
     mark: "A",
     eyebrow: "Field operations platform",
     accent: "from-orange-400/25 via-rose-400/10 to-transparent",
@@ -38,14 +38,15 @@ function getProjectImages(project) {
 
 function BrandLogo({ project }) {
   const brand = brandConfig[project.id]
+  const isAfora = project.id === "afora"
 
   return (
-    <div className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-slate-950/75 shadow-[0_15px_45px_rgba(0,0,0,0.24)]">
+    <div className={`relative flex shrink-0 items-center justify-center overflow-hidden border border-white/10 bg-slate-950/75 shadow-[0_15px_45px_rgba(0,0,0,0.24)] ${isAfora ? "h-[5.5rem] w-[5.5rem] rounded-[1.7rem]" : "h-16 w-16 rounded-2xl"}`}>
       <span className={`absolute text-xl font-black ${brand.text}`}>{brand.mark}</span>
       <img
         src={brand.logo}
         alt={`${project.title} logo`}
-        className="relative z-10 h-11 w-11 object-contain"
+        className={`relative z-10 object-contain ${isAfora ? "h-[4.35rem] w-[4.35rem]" : "h-11 w-11"}`}
         onError={(event) => {
           event.currentTarget.style.display = "none"
         }}
@@ -207,7 +208,7 @@ function Projects() {
                   <StatusBadge project={flagshipProduct} />
                   <span className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-200">Own product</span>
                 </div>
-                <div className="mt-7 flex items-center gap-4">
+                <div className="mt-7 flex items-center gap-5">
                   <BrandLogo project={flagshipProduct} />
                   <div>
                     <h3 className="text-5xl font-semibold tracking-[-0.05em] sm:text-6xl">{flagshipProduct.title}</h3>
