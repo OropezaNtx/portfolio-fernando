@@ -82,6 +82,8 @@ function ProjectDetail() {
     )
   }
 
+  const isProduct = project.type === "product"
+
   return (
     <>
       <Helmet>
@@ -94,11 +96,19 @@ function ProjectDetail() {
 
         <section className="relative z-10 min-h-screen px-6 pb-24 pt-10">
           <div className="mx-auto max-w-[1380px]">
-            <Link to="/#projects" className="inline-flex items-center text-sm text-slate-400 transition hover:text-white">← Back to featured solutions</Link>
+            <Link to="/#projects" className="inline-flex items-center text-sm text-slate-400 transition hover:text-white">← Back to portfolio</Link>
 
             <div className="mt-16 grid min-h-[76vh] items-center gap-14 lg:grid-cols-[0.84fr_1.16fr]">
               <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-                <p className="eyebrow mb-5">{project.platform}</p>
+                <div className="mb-5 flex flex-wrap items-center gap-3">
+                  <p className="eyebrow">{project.platform}</p>
+                  {project.status && (
+                    <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.035] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-300">
+                      <span className={`h-1.5 w-1.5 rounded-full ${project.status.toLowerCase().includes("live") ? "bg-emerald-300 shadow-[0_0_12px_rgba(110,231,183,0.75)]" : "bg-slate-500"}`} />
+                      {project.status}
+                    </span>
+                  )}
+                </div>
                 <h1 className="text-5xl font-semibold leading-[0.98] tracking-[-0.055em] sm:text-7xl xl:text-8xl">{project.title}</h1>
                 <p className="mt-7 max-w-xl text-sm uppercase tracking-[0.16em] text-slate-500">Built for {project.audience}</p>
                 <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-300">{project.impact}</p>
@@ -107,6 +117,16 @@ function ProjectDetail() {
                     <span key={tech} className="rounded-full border border-white/10 bg-white/[0.025] px-4 py-2 text-xs text-slate-400">{tech}</span>
                   ))}
                 </div>
+                {isProduct && project.website && (
+                  <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                    <a href={project.website} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3.5 font-semibold text-slate-950 transition hover:bg-cyan-100">
+                      Visit {project.title} ↗
+                    </a>
+                    <a href="#story" className="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3.5 font-semibold text-white transition hover:bg-white/5">
+                      Explore case study ↓
+                    </a>
+                  </div>
+                )}
               </motion.div>
 
               <motion.div initial={{ opacity: 0, scale: 0.96, y: 28 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.85, delay: 0.12 }} className="relative">
@@ -130,11 +150,11 @@ function ProjectDetail() {
           </div>
         </section>
 
-        <section className="relative z-10 px-6 py-32">
+        <section id="story" className="relative z-10 px-6 py-32">
           <div className="mx-auto max-w-6xl">
             <div className="grid gap-16 lg:grid-cols-[0.72fr_1.28fr]">
               <motion.div {...fadeUp}>
-                <p className="eyebrow mb-5">Project story</p>
+                <p className="eyebrow mb-5">{isProduct ? "Product story" : "Project story"}</p>
                 <h2 className="text-4xl font-semibold tracking-[-0.045em] sm:text-6xl">A real process transformed into a usable solution.</h2>
               </motion.div>
               <div className="space-y-16">
@@ -244,11 +264,17 @@ function ProjectDetail() {
         </section>
 
         <section className="relative z-10 border-t border-white/10 px-6 py-28 text-center">
-          <p className="eyebrow mb-5">Next conversation</p>
-          <h2 className="mx-auto max-w-4xl text-5xl font-semibold tracking-[-0.05em] sm:text-7xl">Interested in how I approach this kind of problem?</h2>
+          <p className="eyebrow mb-5">{isProduct ? "Explore the product" : "Next conversation"}</p>
+          <h2 className="mx-auto max-w-4xl text-5xl font-semibold tracking-[-0.05em] sm:text-7xl">
+            {isProduct && project.website ? `${project.title} exists beyond this case study.` : "Interested in how I approach this kind of problem?"}
+          </h2>
+          {isProduct && project.website && (
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-400">Visit the product website to explore its capabilities, platform model and positioning in more detail.</p>
+          )}
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+            {project.website && <a href={project.website} target="_blank" rel="noreferrer" className="rounded-full bg-white px-7 py-3.5 font-semibold text-slate-950 transition hover:bg-cyan-100">Visit {project.title} ↗</a>}
             {project.github && <a href={project.github} target="_blank" rel="noreferrer" className="rounded-full border border-white/15 px-7 py-3.5 text-white transition hover:bg-white/5">GitHub</a>}
-            <Link to="/#contact" className="rounded-full bg-white px-7 py-3.5 font-semibold text-slate-950 transition hover:bg-cyan-100">Contact me</Link>
+            {!isProduct && <Link to="/#contact" className="rounded-full bg-white px-7 py-3.5 font-semibold text-slate-950 transition hover:bg-cyan-100">Contact me</Link>}
           </div>
         </section>
       </main>
